@@ -5,6 +5,15 @@ vaccinationn issuer.
 
 - [ubirch-certify-api.yaml](ubirch-certify-api.yaml) - certification endpoints
 
+# Building
+
+Install redoc-cli and create a single html documentation:
+
+```bash
+npm install -g redoc-cli
+redoc-cli bundle -o ubirch-certify-api.html ubirch-certify-api.yaml
+```
+
 ## Copyright
 
 ```

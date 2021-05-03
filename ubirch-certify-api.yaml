@@ -5,6 +5,10 @@ info:
   license:
     name: 'Apache License, Version 2.0'
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
+  contact:
+    name: UBIRCH GmbH
+    url: https://ubirch.com
+    email: support@ubirch.com
 paths:
   /api/certify/v1/issue:
     post:
@@ -25,8 +29,10 @@ paths:
           examples:
             Generate PDF:
               value: true
+              description: Generate a certificate PDF document.
             Do not generate PDF:
               value: false
+              description: Prohibit generation of a PDF document.
           allowEmptyValue: true
           description: If false, do not return PDF if not required.
         - in: query
@@ -34,12 +40,14 @@ paths:
           name: vcid
           schema:
             type: string
-            pattern: [0-9A-Z]+
+            pattern: "^[0-9A-Z]+$"
           examples:
             Alt-Ötting:
               value: 84503
+              description: An example of a postal code for Alt-Ötting.
             Berlin-Tegel:
               value: 330091
+              description: An example of a vaccination center in Berlin Tegel.
           description: Vaccination center identifier (not required for PVS).
       responses:
         '200':
