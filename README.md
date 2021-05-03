@@ -1,6 +1,6 @@
 # Certification API Documentation
 
-this repository contains documentation for certification endpoints for the
+This repository contains documentation for certification endpoints for the
 vaccinationn issuer.
 
 - [ubirch-certify-api.yaml](ubirch-certify-api.yaml) - certification endpoints
