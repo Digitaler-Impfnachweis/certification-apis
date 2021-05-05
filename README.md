@@ -1,11 +1,17 @@
 # Certification API Documentation
 
-This repository contains documentation for certification endpoints for the
-vaccinationn issuer.
+This repository contains documentation about certification endpoints and related flows for authentication and authorization.
 
-- [ubirch-certify-api.yaml](ubirch-certify-api.yaml) - certification endpoints
+The interface specifications are aligned with the DGC schema specification published in version [1.0.0](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0)
 
-The interface specification is based on the DGC schema specifiation published in version [1.0.0](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0)
+## OpenAPI Specifications
+
+- [OpenAPI - Certificate Issuing](ubirch-certify-api.yaml) 
+
+## Authentication
+
+- [Authentication with TI SMCB](SMCB-Authentication.md) 
+
 
 ## Copyright
 
