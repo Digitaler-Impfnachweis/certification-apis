@@ -159,17 +159,6 @@ components:
         #ci:
         #  description: 'Unique Certificate Identifier: UVCI'
         #  $ref: 'dgc-schema.json#/$defs/certificate_id'
-
-        ln:
-          description: Lot number of the vaccine dose.
-          type: string
-        pf:
-          description: The doctor or personnel performing the vaccination.
-          type: string
-        nd:
-          description: The next vaccination date.
-          type: string
-          format: date
     CertificationResponse:
       type: object
       properties:
