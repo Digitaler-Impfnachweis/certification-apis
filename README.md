@@ -5,7 +5,7 @@ vaccinationn issuer.
 
 - [ubirch-certify-api.yaml](ubirch-certify-api.yaml) - certification endpoints
 
-
+The interface specification is based on the DGC schema specifiation published in version [1.0.0](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0)
 
 ## Copyright
 
