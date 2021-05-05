@@ -1,6 +1,8 @@
 # Certification API Documentation
 
-This repository contains documentation about certification endpoints and related flows for authentication and authorization.
+This repository contains documentation about certification endpoints and related flows for authentication and authorization to be integrated with information systems of physicians, pharmacies and vaccination centers.
+
+**Currently all APIs have a draft status.**
 
 The interface specifications are aligned with the DGC schema specification published in version [1.0.0](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0)
 
