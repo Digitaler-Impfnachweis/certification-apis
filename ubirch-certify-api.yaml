@@ -1,9 +1,12 @@
 openapi: 3.0.1
 info:
   title: Vaccination Issuer Service API
-  description: >-
-    The issuer service API generates signed DGC conforming certificates.
-  version: 1.3.0
+  description: |
+    The issuer service API generates signed
+    [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0)
+    conforming certificates.
+
+  version: 2.0.0
   license:
     name: 'Apache License, Version 2.0'
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -17,10 +20,16 @@ paths:
   # ===========================================================
   /api/certify/v2/issue:
     post:
+      tags:
+        - Certification
       summary: Issue a vaccination certificate.
-      description: >-
+      description: |
+        # Description
+
         Issue a vaccination certificate based on the provided input according to spec 1.0.0 of the
         [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0).
+
+        *Applications:* vaccination center software, patient information systems, integrators
       requestBody:
         description: Vaccination information.
         content:
@@ -33,26 +42,146 @@ paths:
           content:
             application/cbor+base45:
               schema:
-                $ref: '#/components/schemas/CertificationResponse'
+                $ref: '#/components/schemas/CertificateEncoded'
             application/cbor:
               schema:
-                $ref: '#/components/schemas/CertificationResponseBinary'
+                $ref: '#/components/schemas/CertificateBinary'
             application/pdf:
               schema:
-                $ref: '#/components/schemas/CertificationResponsePDF'
+                $ref: '#/components/schemas/CertificationPDF'
         '400':
           description: Invalid Request
           # WIP: define extended error messages if input is wrong
         '401':
-          description: Authentication Failure(Credential missing)
+          description: Authentication Failure (Credential missing)
         '403':
-          description: Forbidden(Invalid Credentials)
+          description: Forbidden (Invalid Credentials)
         '406':
           description: Incorrect data model
         '500':
           description: Internal Server Error
       security:
-        - AppBearerToken: []
+        - AppBearerToken: [ ]
+
+  /api/certify/v2/issue/hash:
+    post:
+      tags:
+        - Certification
+      summary: Sign a CBOR Web Token hash.
+      description: |
+        # Description
+        Verifies and signs the hash of a [CBOR Web Token](https://tools.ietf.org/html/rfc8392) (CWT). This is the
+        actual signature operation of the [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
+        algorithm applied to the pre-hashed data of the CWT. It returns the skeleton of the signed CWT which needs to
+        be filled with the actual payload that was used in the process of creating the signature hash. This endpoint
+        is used for a privacy friendly way to remotely sign certificates.
+
+        *Applications:* vaccination web frontend
+      requestBody:
+        description: Base64 encoded SHA256 message digest of the CBOR Web Token.
+        content:
+          text/plain:
+            schema:
+              type: string
+              format: base64
+            example: "TvQb78AX/5r+5ZkVYYeUW0Rn/4FB8ICt6sSdrwOq0EI="
+      responses:
+        '200':
+          description: A signed incomplete CBOR Web Token.
+          content:
+            application/cbor:
+              schema:
+                type: string
+                format: binary
+              example: "<Signed Incomplete CBOR Web Token>"
+        '400':
+          description: Invalid Request
+        '401':
+          description: Authentication Failure(Credential missing)
+        '403':
+          description: Forbidden(Invalid Credentials)
+        '406':
+          description: Incorrect CBOR Data
+        '500':
+          description: Internal Server Error
+      security:
+        - AppBearerToken: [ ]
+
+  /api/certify/v2/reissue/cbor:
+    post:
+      tags:
+        - Re-issuing
+      summary: Re-issue a new certificate based on an existing valid certificate.
+      description: |
+        # Description
+
+        Re-issue a new certificate based on an existing valid certificate. This operation verifies the authenticity and
+        the integrity of the certificate, checks some formal rules of the content of the certificate and re-issues
+        a new certificate with a different validity than the original certificate.
+
+        *Applications:* mobile applications, wallet apps
+      requestBody:
+        description: A valid Digital Green Certificate (DGC) signed in Germany (DE).
+        content:
+          application/cbor:
+            schema:
+              $ref: '#/components/schemas/CertificateBinary'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/cbor+base45:
+              schema:
+                $ref: '#/components/schemas/CertificateEncoded'
+        # -- in discussion --
+        # application/cbor:
+        #   schema:
+        #     $ref: '#/components/schemas/CertificateBinary'
+        '400':
+          description: Invalid Request
+          # WIP: define extended error messages if input is wrong
+        '401':
+          description: Authentication Failure (Credential missing)
+        '403':
+          description: Forbidden (Invalid Credentials)
+        '406':
+          description: Incorrect CBOR data or invalid signature
+        '500':
+          description: Internal Server Error
+      security:
+        - AppBearerToken: [ ]
+
+  /api/certify/v1/reissue/cbor:
+    post:
+      deprecated: true
+      tags:
+        - Re-issuing
+      summary: Re-issue a new certificate based on an existing valid certificate.
+      description: Issues a validation certificate in CBOR/COSE based on the incoming CBOR/COSE Certificate
+      requestBody:
+        content:
+          application/cbor:
+            schema:
+              $ref: '#/components/schemas/CertificateBinary'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/cbor:
+              schema:
+                $ref: '#/components/schemas/CertificateBinary'
+        '400':
+          description: Invalid Request
+        '401':
+          description: Authentication Failure (Credential missing)
+        '403':
+          description: Forbidden (Invalid Credentials)
+        '406':
+          description: Incorrect Cbor Data or invalid signature
+        '500':
+          description: Internal Server Error
+      security:
+        - AppBearerToken: [ ]
 
 components:
   # ===========================================================
@@ -105,8 +234,7 @@ components:
           gn: "Erika Dörte"
         dob: "1979-04-14"
         v:
-          -
-            id: "IZ28215B"
+          - id: "IZ28215B"
             tg: "840539006"
             vp: "1119305005"
             mp: "EU/1/20/1528"
@@ -114,6 +242,7 @@ components:
             dn: 1
             sd: 2
             dt: "2021-04-14"
+
     Vaccination:
       description: Single vaccination data entry.
       type: object
@@ -149,25 +278,31 @@ components:
           description: Date of Vaccination
           type: string
           format: date
-    CertificationResponse:
+
+    CertificateEncoded:
       description: >-
-        Base45 encoded and compressed Digital Green Certificate (DGC) according to EU specification.
+        Base45 encoded and compressed Digital Green Certificate (DGC) according to EU specification. An encoded
+        certificate can be directly rendered as a QR code according to the EU specification.
       type: string
+      format: base45
       example: "HC1:6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEMWK4MI6UOS03CR83KLBKAVN74.CL91/8K6%KEG3983NS9SVBHABVCNN95SWMPHQUHQN%A400H%UBT16Y51Y9AT1:+P6YBKD0:XB7NGJQOIS7I$H%T5+XO8YJMVHBZJF 9NSG:PICIG%*47%S%*48YIZ73423ZQT-EJDG3XW44$22CLY.IE.KD+2H0D3ZCU7JI$2K3JQH5-Y3$PA$HSCHBI I7995R5ZFQETU 9R*PP:+P*.1D9RYO05QD/8D3FC:XIBEIVG395EP1E+WEDJL8FF3DE0OA0D9E2LBHHNHL$EQ+-CVYCMBB:AV5AL5:4A93MOJLWT.C3FDA.-B97U: KMZNKASADIMKN2GFLF9$HF.3O.X21FDLW4L4OVIOE1M24OR:FTNP8EFVMP9/HWKP/HLIJL8JF8JF172OTTHO9YW2E6LS7WGYNDDSHRSFXT*LMK8P*G8QWD8%P%5GPPMEVMTHDBESW2L.TN8BBBDR9+JLDR/1JGIF8BS0IKT8LB1T7WLA:FI%JI50H:EK1"
-    CertificationResponseBinary:
+
+    CertificateBinary:
       description: >-
         Binary representation of the Digital Green Certificate (DGC) according to EU specification.
         This is a pure CBOR Web Token (CWT) without compression and encoding and HC1: prefix.
       type: string
       format: binary
       example: "<CBOR Web Token>"
-    CertificationResponsePDF:
+
+    CertificationPDF:
       description: >-
         A rendered PDF document containing the vaccination certificate information including a
         Digital Green Certificate (DGC) QR Code according to EU specification.
       type: string
       format: binary
       example: "<PDF>"
+
   securitySchemes:
     AppBearerToken:
       type: http
