@@ -12,6 +12,9 @@ info:
     url: https://ubirch.com
     email: support@ubirch.com
 paths:
+  # ===========================================================
+  # Available API endpoints
+  # ===========================================================
   /api/certify/v2/issue:
     post:
       summary: Issue a vaccination certificate.
@@ -39,6 +42,7 @@ paths:
                 $ref: '#/components/schemas/CertificationResponsePDF'
         '400':
           description: Invalid Request
+          # WIP: define extended error messages if input is wrong
         '401':
           description: Authentication Failure(Credential missing)
         '403':
@@ -51,25 +55,37 @@ paths:
         - AppBearerToken: []
 
 components:
-# ===========================================================
-# Request and response schema definitions
-# ===========================================================
+  # ===========================================================
+  # Request and response schema definitions
+  # ===========================================================
   schemas:
     VaccinationRequest:
       description: Vaccination request object.
       type: object
       required:
-        - id
         - nam
         - dob
         - v
       properties:
-        id:
-          description: Identifier of the administering location (i.e. vaccination center).
-          type: string
-          pattern: "^[0-9A-Z]+$"
         nam:
-          $ref: 'dgc-schema.json#/$defs/person_name'
+          title: Person name
+          description: Name of the vaccinated person.
+          type: object
+          required:
+            - fn
+          properties:
+            fn:
+              title: Family name
+              description: The family or primary name(s) of the person addressed in the certificate
+              type: string
+              maxLength: 50
+              example: "Musterfrau-Dießner"
+            gn:
+              title: Given name
+              description: The given name(s) of the person addressed in the certificate
+              type: string
+              maxLength: 50
+              example: "Erika Dörte"
         dob:
           title: Date of birth
           description: Date of Birth of the person addressed in the DGC. ISO 8601 date format restricted to range 1900-2099
@@ -84,23 +100,25 @@ components:
             $ref: '#/components/schemas/Vaccination'
           minItems: 1
       example:
-        id: "IZ28215B"
         nam:
-          fn: "Musterfrau"
-          gn: "Erika"
+          fn: "Musterfrau-Dießner"
+          gn: "Erika Dörte"
         dob: "1979-04-14"
         v:
-          tg: "840539006"
-          vp: "1119305005"
-          mp: "EU/1/20/1528"
-          ma: "ORG-100001699"
-          dn: 1
-          sd: 2
-          dt: "2021-04-14"
+          -
+            id: "IZ28215B"
+            tg: "840539006"
+            vp: "1119305005"
+            mp: "EU/1/20/1528"
+            ma: "ORG-100001699"
+            dn: 1
+            sd: 2
+            dt: "2021-04-14"
     Vaccination:
       description: Single vaccination data entry.
       type: object
       required:
+        - id
         - tg
         - vp
         - mp
@@ -109,6 +127,12 @@ components:
         - sd
         - dt
       properties:
+        id:
+          description: >-
+            Identifier of the administering location (i.e. vaccination center). It will
+            be used in the construction of the DGCI (digitial green certificate identifier).
+          type: string
+          pattern: "^[0-9A-Z]+$"
         tg:
           $ref: 'dgc-schema.json#/$defs/disease-agent-targeted'
         vp:
@@ -144,7 +168,6 @@ components:
       type: string
       format: binary
       example: "<PDF>"
-
   securitySchemes:
     AppBearerToken:
       type: http
@@ -152,4 +175,3 @@ components:
         Authentication is based on a bearer token
       scheme: bearer
       bearerFormat: JWT
-
