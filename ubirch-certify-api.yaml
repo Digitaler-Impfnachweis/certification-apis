@@ -126,6 +126,10 @@ paths:
           application/cbor:
             schema:
               $ref: '#/components/schemas/CertificateBinary'
+          # -- in discussion --
+          #application/cbor+base45:
+          #  schema:
+          #    $ref: '#/components/schemas/CertificateEncoded'
       responses:
         '200':
           description: OK
@@ -133,10 +137,9 @@ paths:
             application/cbor+base45:
               schema:
                 $ref: '#/components/schemas/CertificateEncoded'
-        # -- in discussion --
-        # application/cbor:
-        #   schema:
-        #     $ref: '#/components/schemas/CertificateBinary'
+            application/cbor:
+              schema:
+                $ref: '#/components/schemas/CertificateBinary'
         '400':
           description: Invalid Request
           # WIP: define extended error messages if input is wrong
