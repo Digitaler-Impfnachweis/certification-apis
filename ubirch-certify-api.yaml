@@ -12,48 +12,37 @@ info:
     url: https://ubirch.com
     email: support@ubirch.com
 paths:
-  /api/certify/v1/issue:
+  # ===========================================================
+  # Available API endpoints
+  # ===========================================================
+  /api/certify/v2/issue:
     post:
       summary: Issue a vaccination certificate.
-      description: Issue a vaccination certificate based on the provided input according to spec 1.0.5 of the digital green certificate https://github.com/ehn-digital-green-development/hcert-spec/blob/main/hcert_spec.md
+      description: >-
+        Issue a vaccination certificate based on the provided input according to spec 1.0.0 of the
+        [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0).
       requestBody:
-        description: Vaccination.
+        description: Vaccination information.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VaccinationCertificate'
-      parameters:
-        - in: query
-          required: false
-          name: pdf
-          schema:
-            type: boolean
-          examples:
-            Generate PDF:
-              value: true
-              description: Generate a certificate PDF document.
-            Do not generate PDF:
-              value: false
-              description: Prohibit generation of a PDF document.
-          allowEmptyValue: true
-          description: If false, do not return PDF if not required.
-        - in: query
-          required: false
-          name: vcid
-          schema:
-            type: string
-            pattern: "^[0-9A-Z]+$"
-          example: IZ28215B
-          description: Vaccination center identifier (not required for PVS).
+              $ref: '#/components/schemas/VaccinationRequest'
       responses:
         '200':
-          description: Returns a JSON document containing the Base45 encoded certificate and optionally a PDF document.
+          description: Certificate response as PDF, encoded or binary token.
           content:
-            application/json:
+            application/cbor+base45:
               schema:
                 $ref: '#/components/schemas/CertificationResponse'
+            application/cbor:
+              schema:
+                $ref: '#/components/schemas/CertificationResponseBinary'
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/CertificationResponsePDF'
         '400':
           description: Invalid Request
+          # WIP: define extended error messages if input is wrong
         '401':
           description: Authentication Failure(Credential missing)
         '403':
@@ -66,17 +55,38 @@ paths:
         - AppBearerToken: []
 
 components:
+  # ===========================================================
+  # Request and response schema definitions
+  # ===========================================================
   schemas:
-    VaccinationCertificate:
+    VaccinationRequest:
+      description: Vaccination request object.
       type: object
       required:
-        - name
+        - nam
         - dob
         - v
       properties:
-        name:
-          $ref: 'dgc-schema.json#/$defs/person_name'
-        dateOfBirth:
+        nam:
+          title: Person name
+          description: Name of the vaccinated person.
+          type: object
+          required:
+            - fn
+          properties:
+            fn:
+              title: Family name
+              description: The family or primary name(s) of the person addressed in the certificate
+              type: string
+              maxLength: 50
+              example: "Musterfrau-Dießner"
+            gn:
+              title: Given name
+              description: The given name(s) of the person addressed in the certificate
+              type: string
+              maxLength: 50
+              example: "Erika Dörte"
+        dob:
           title: Date of birth
           description: Date of Birth of the person addressed in the DGC. ISO 8601 date format restricted to range 1900-2099
           type: string
@@ -90,22 +100,39 @@ components:
             $ref: '#/components/schemas/Vaccination'
           minItems: 1
       example:
-        name:
-          fn: Musterfrau
-          gn: Erika
-        dob: 1979-04-14
+        nam:
+          fn: "Musterfrau-Dießner"
+          gn: "Erika Dörte"
+        dob: "1979-04-14"
         v:
-          tg: 840539006
-          vp: 1119305005
-          mp: EU/1/20/1528
-          ma: ORG-100001699
-          dn: 1
-          sd: 2
-          dt: 2021-04-14
+          -
+            id: "IZ28215B"
+            tg: "840539006"
+            vp: "1119305005"
+            mp: "EU/1/20/1528"
+            ma: "ORG-100001699"
+            dn: 1
+            sd: 2
+            dt: "2021-04-14"
     Vaccination:
+      description: Single vaccination data entry.
       type: object
-      description: Vaccination Entry
+      required:
+        - id
+        - tg
+        - vp
+        - mp
+        - ma
+        - dn
+        - sd
+        - dt
       properties:
+        id:
+          description: >-
+            Identifier of the administering location (i.e. vaccination center). It will
+            be used in the construction of the DGCI (digitial green certificate identifier).
+          type: string
+          pattern: "^[0-9A-Z]+$"
         tg:
           $ref: 'dgc-schema.json#/$defs/disease-agent-targeted'
         vp:
@@ -122,27 +149,25 @@ components:
           description: Date of Vaccination
           type: string
           format: date
-      required:
-        - tg
-        - vp
-        - mp
-        - ma
-        - dn
-        - sd
-        - dt
     CertificationResponse:
-      type: object
-      properties:
-        pdf:
-          type: string
-          description: Base64 encoded PDF document.
-          example: base64:...
-        cert:
-          required: true
-          type: string
-          description: Base45 encoded HCERT according to EU specification.
-          example: HC1:6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEXWK G2EP4J0BGJLFX3R3VHXK.PJ:2DPF6R:5SVBHABVCNN95SWMPHQUHQN%A0SOE+QQAB-HQ/HQ7IR.SQEEOK9SAI4- 7Y15KBPD34  QWSP0WRGTQFNPLIR.KQNA7N95U/3FJCTG90OARH9P1J4HGZJKBEG%123ZC$0BCI757TLXKIBTV5TN%2LXK-$CH4TSXKZ4S/$K%0KPQ1HEP9.PZE9Q$95:UENEUW6646936HRTO$9KZ56DE/.QC$Q3J62:6LZ6O59++9-G9+E93ZM$96TV6NRN3T59YLQM1VRMP$I/XK$M8PK66YBTJ1ZO8B-S-*O5W41FD$ 81JP%KNEV45G1H*KESHMN2/TU3UQQKE*QHXSMNV25$1PK50C9B/9OK5NE1 9V2:U6A1ELUCT16DEETUM/UIN9P8Q:KPFY1W+UN MUNU8T1PEEG%5TW5A 6YO67N6BBEWED/3LS3N6YU.:KJWKPZ9+CQP2IOMH.PR97QC:ACZAH.SYEDK3EL-FIK9J8JRBC7ADHWQYSK48UNZGG NAVEHWEOSUI2L.9OR8FHB0T5HM7I
-
+      description: >-
+        Base45 encoded and compressed Digital Green Certificate (DGC) according to EU specification.
+      type: string
+      example: "HC1:6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEMWK4MI6UOS03CR83KLBKAVN74.CL91/8K6%KEG3983NS9SVBHABVCNN95SWMPHQUHQN%A400H%UBT16Y51Y9AT1:+P6YBKD0:XB7NGJQOIS7I$H%T5+XO8YJMVHBZJF 9NSG:PICIG%*47%S%*48YIZ73423ZQT-EJDG3XW44$22CLY.IE.KD+2H0D3ZCU7JI$2K3JQH5-Y3$PA$HSCHBI I7995R5ZFQETU 9R*PP:+P*.1D9RYO05QD/8D3FC:XIBEIVG395EP1E+WEDJL8FF3DE0OA0D9E2LBHHNHL$EQ+-CVYCMBB:AV5AL5:4A93MOJLWT.C3FDA.-B97U: KMZNKASADIMKN2GFLF9$HF.3O.X21FDLW4L4OVIOE1M24OR:FTNP8EFVMP9/HWKP/HLIJL8JF8JF172OTTHO9YW2E6LS7WGYNDDSHRSFXT*LMK8P*G8QWD8%P%5GPPMEVMTHDBESW2L.TN8BBBDR9+JLDR/1JGIF8BS0IKT8LB1T7WLA:FI%JI50H:EK1"
+    CertificationResponseBinary:
+      description: >-
+        Binary representation of the Digital Green Certificate (DGC) according to EU specification.
+        This is a pure CBOR Web Token (CWT) without compression and encoding and HC1: prefix.
+      type: string
+      format: binary
+      example: "<CBOR Web Token>"
+    CertificationResponsePDF:
+      description: >-
+        A rendered PDF document containing the vaccination certificate information including a
+        Digital Green Certificate (DGC) QR Code according to EU specification.
+      type: string
+      format: binary
+      example: "<PDF>"
   securitySchemes:
     AppBearerToken:
       type: http
