@@ -102,7 +102,7 @@ HC1:6BFOXN*TS0BI$ZD.P9O6RZ.1LKLX97/3AOW2TCVM6K6+3R651WG%MP8*IVH53VDR%28WA1*QC3B:
 ```
 
 To test this certificate, you can use [this page](https://github.pathcheck.org/debug.html) and paste the Base45
-text and use the [demo.dcs.crt](demo-dcs.crt) certificate to verify.
+text and use the [demo signing certificate](demo-dsc.crt) certificate to verify.
 
 ## Possible Issues
 
