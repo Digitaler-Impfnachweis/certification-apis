@@ -4,15 +4,19 @@ This repository contains documentation about certification endpoints and related
 
 **Currently all APIs have a draft status.**
 
-The interface specifications are aligned with the DGC schema specification published in version [1.0.0](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0)
+The interface specifications are aligned with the DGC schema specification published in version [1.0.0](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0).
 
 ## OpenAPI Specifications
 
-- [OpenAPI - Certificate Issuing](ubirch-certify-api.yaml) 
+- **Issuer API** ([Specification](ubirch-certify-api.yaml))
+
+  Provides endpoints for the web frontend, vaccination center software,
+  patient management software to issue [DGC](https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/covid-19-digital-green-certificates)
+  compliant certificates as well as the Apps for re-issuing. 
 
 ## Authentication
 
-- [Authentication with TI SMCB](SMCB-Authentication.md) 
+- [Authentication with TI SMCB](SMCB-Authentication.md)
 
 
 ## Copyright
