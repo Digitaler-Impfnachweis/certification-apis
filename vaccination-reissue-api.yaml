@@ -119,3 +119,12 @@ paths:
           description: Internal Server Error
       security:
         - AppBearerToken: [ ]
+
+components:
+  securitySchemes:
+    AppBearerToken:
+      type: http
+      description: >-
+        Authentication is based on a bearer token
+      scheme: bearer
+      bearerFormat: JWT
