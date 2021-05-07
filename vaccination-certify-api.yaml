@@ -2,14 +2,10 @@ openapi: 3.0.1
 servers:
   - url: https://api.certify.demo.ubirch.com/
     description: STAGING api server
-  - url: https://api.recertify.demo.ubirch.com/
-    description: STAGING api server (re-issue only)
   - url: https://api.certify.ubirch.com/
     description: PRODUCTION api server
-  - url: https://api.recertify.ubirch.com/
-    description: PRODUCTION api server (re-issue only)
 info:
-  title: Vaccination Issuer Service API
+  title: Issuer Service API
   description: |
     The issuer service API generates signed
     [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0)
@@ -128,85 +124,6 @@ paths:
           description: Forbidden(Invalid Credentials)
         '406':
           description: Incorrect CBOR Data
-        '500':
-          description: Internal Server Error
-      security:
-        - AppBearerToken: [ ]
-
-  /api/certify/v2/reissue/cbor:
-    post:
-      tags:
-        - Re-issuing
-      summary: Re-issue a new certificate based on an existing valid certificate.
-      description: |
-        # Description
-
-        Re-issue a new certificate based on an existing valid certificate. This operation verifies the authenticity and
-        the integrity of the certificate, checks some formal rules of the content of the certificate and re-issues
-        a new certificate with a different validity than the original certificate.
-
-        *Applications:* mobile applications, wallet apps
-      requestBody:
-        description: A valid Digital Green Certificate (DGC) signed in Germany (DE).
-        content:
-          application/cbor:
-            schema:
-              $ref: '#/components/schemas/CertificateBinary'
-          # -- in discussion --
-          #application/cbor+base45:
-          #  schema:
-          #    $ref: '#/components/schemas/CertificateEncoded'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/cbor+base45:
-              schema:
-                $ref: '#/components/schemas/CertificateEncoded'
-            application/cbor:
-              schema:
-                $ref: '#/components/schemas/CertificateBinary'
-        '400':
-          description: Invalid Request
-          # WIP: define extended error messages if input is wrong
-        '401':
-          description: Authentication Failure (Credential missing)
-        '403':
-          description: Forbidden (Invalid Credentials)
-        '406':
-          description: Incorrect CBOR data or invalid signature
-        '500':
-          description: Internal Server Error
-      security:
-        - AppBearerToken: [ ]
-
-  /api/certify/v1/reissue/cbor:
-    post:
-      deprecated: true
-      tags:
-        - Re-issuing
-      summary: Re-issue a new certificate based on an existing valid certificate.
-      description: Issues a validation certificate in CBOR/COSE based on the incoming CBOR/COSE Certificate
-      requestBody:
-        content:
-          application/cbor:
-            schema:
-              $ref: '#/components/schemas/CertificateBinary'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/cbor:
-              schema:
-                $ref: '#/components/schemas/CertificateBinary'
-        '400':
-          description: Invalid Request
-        '401':
-          description: Authentication Failure (Credential missing)
-        '403':
-          description: Forbidden (Invalid Credentials)
-        '406':
-          description: Incorrect Cbor Data or invalid signature
         '500':
           description: Internal Server Error
       security:
