@@ -53,7 +53,9 @@ paths:
 
         *Applications:* vaccination center software, patient information systems, integrators
       requestBody:
-        description: Vaccination information.
+        description: >-
+          Vaccination information. The value-sets are defined in the
+          [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
         content:
           application/json:
             schema:
