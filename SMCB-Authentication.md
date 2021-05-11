@@ -49,6 +49,7 @@ This step takes care of signing the provided challenge with the SMCB. The steps 
 Details about the interaction with the SMCB can be seen in the [sequence diagram](authentication/seq_diagram_smcb_iam.png).
 
 Supported Ciphers: RSA and ECC
+
 Signature Type: Depends on certificate
 
 
