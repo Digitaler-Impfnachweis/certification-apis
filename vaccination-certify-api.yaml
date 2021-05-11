@@ -135,7 +135,9 @@ components:
   # ===========================================================
   schemas:
     VaccinationRequest:
-      description: Vaccination request object.
+      description: >-
+        Vaccination request object. The value-sets are defined in the
+        [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
       type: object
       required:
         - nam
