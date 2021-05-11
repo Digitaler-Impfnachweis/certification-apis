@@ -204,8 +204,9 @@ components:
       properties:
         id:
           description: >-
-            Identifier of the administering location (i.e. vaccination center). It will
-            be used in the construction of the DGCI (digitial green certificate identifier).
+            Identifier of the administering location (i.e. vaccination center ID, BSNR or similar identifer).
+            It will be used in the construction of the DGCI (digitial green certificate identifier).
+            Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed.
           type: string
           pattern: "^[0-9A-Z]+$"
         tg:
