@@ -48,6 +48,10 @@ Both parameters are important and need to be saved temporary since they're relev
 This step takes care of signing the provided challenge with the SMCB. The steps are not illustrated here because there are dependent on the framework of the integrating system. 
 Details about the interaction with the SMCB can be seen in the [sequence diagram](authentication/seq_diagram_smcb_iam.png).
 
+Supported Ciphers: RSA and ECC
+Signature Type: Depends on certificate
+
+
 ## 4. Submit Signed challenge and SMCB public certificate
 
 Call action-uri from step 2 and add the following request headers 
