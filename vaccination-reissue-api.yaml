@@ -88,38 +88,6 @@ paths:
       security:
         - AppBearerToken: [ ]
 
-  /api/certify/v1/reissue/cbor:
-    post:
-      deprecated: true
-      tags:
-        - Re-issuing
-      summary: Re-issue a new certificate based on an existing valid certificate.
-      description: Issues a validation certificate in CBOR/COSE based on the incoming CBOR/COSE Certificate
-      requestBody:
-        content:
-          application/cbor:
-            schema:
-              $ref: 'vaccination-certify-api.yaml#/components/schemas/CertificateBinary'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/cbor:
-              schema:
-                $ref: 'vaccination-certify-api.yaml#/components/schemas/CertificateBinary'
-        '400':
-          description: Invalid Request
-        '401':
-          description: Authentication Failure (Credential missing)
-        '403':
-          description: Forbidden (Invalid Credentials)
-        '406':
-          description: Incorrect Cbor Data or invalid signature
-        '500':
-          description: Internal Server Error
-      security:
-        - AppBearerToken: [ ]
-
 components:
   securitySchemes:
     AppBearerToken:
