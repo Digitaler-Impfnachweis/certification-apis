@@ -23,6 +23,10 @@ The interface specifications are aligned with the DGC schema specification publi
 
 - [Authentication with TI SMCB](SMCB-Authentication.md)
 
+## Additional Information
+
+For implementors the official documentation of the Digital Green Certificate
+can be found on the [EU eHealth Network](https://ec.europa.eu/health/ehealth/key_documents_en) page.
 
 ## Copyright
 
