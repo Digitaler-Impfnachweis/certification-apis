@@ -16,7 +16,7 @@ The interface specifications are aligned with the DGC schema specification publi
   
 - **Re-issue API** ([Specification](vaccination-reissue-api.yaml))
 
-  provides endpoints for the Apps to re-issue validation certificates based on current regulation and rules. These
+  Provides endpoints for the Apps to re-issue validation certificates based on current regulation and rules. These
   certificates are also DGC compliant.
 
 ## Authentication
