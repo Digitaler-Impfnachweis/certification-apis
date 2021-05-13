@@ -72,7 +72,7 @@ the [API](../vaccination-certify-api.yaml) to request a certificate for a vaccin
 # request a Base45 encoded certificate
 curl \
   --location \
-  --request POST 'http://api.certify.demo.ubirch.com/api/certify/v2/issue' \
+  --request POST 'https://api.certify.demo.ubirch.com/api/certify/v2/issue' \
   --key demo.key \
   --cert demo.crt \
   --header 'Accept: application/cbor+base45' \
