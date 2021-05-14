@@ -51,7 +51,11 @@ paths:
         Issue a vaccination certificate based on the provided input according to spec 1.0.0 of the
         [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0).
 
-        *Applications:* vaccination center software, patient information systems, integrators
+        **Authentication:** clients connecting via Internet (not [SNK](https://www.kbv.de/html/sicheres_netz.php)/[TI](https://www.gematik.de/telematikinfrastruktur/))
+        need an X.509 client certificate and must provide a list of authorized vaccination center `id`'s.
+
+
+        **Applications:** vaccination center software, patient information systems, integrators
       requestBody:
         description: >-
           Vaccination information. The value-sets are defined in the
@@ -100,7 +104,7 @@ paths:
         be filled with the actual payload that was used in the process of creating the signature hash. This endpoint
         is used for a privacy friendly way to remotely sign certificates.
 
-        *Applications:* vaccination web frontend
+        **Applications:** vaccination web frontend
       requestBody:
         description: Base64 encoded SHA256 message digest of the CBOR Web Token.
         content:
