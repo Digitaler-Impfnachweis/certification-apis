@@ -54,7 +54,6 @@ paths:
         **Authentication:** clients connecting via Internet (not [SNK](https://www.kbv.de/html/sicheres_netz.php)/[TI](https://www.gematik.de/telematikinfrastruktur/))
         need an X.509 client certificate and must provide a list of authorized vaccination center `id`'s.
 
-
         **Applications:** vaccination center software, patient information systems, integrators
       requestBody:
         description: >-
