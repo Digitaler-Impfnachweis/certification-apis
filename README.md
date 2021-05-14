@@ -14,11 +14,6 @@ The interface specifications are aligned with the DGC schema specification publi
   patient management software to issue [DGC](https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/covid-19-digital-green-certificates)
   compliant certificates.
   
-- **Re-issue API** ([Specification](vaccination-reissue-api.yaml))
-
-  Provides endpoints for the Apps to re-issue validation certificates based on current regulation and rules. These
-  certificates are also DGC compliant.
-
 ## Authentication
 
 - [Authentication with TI SMCB](SMCB-Authentication.md)
