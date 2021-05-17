@@ -14,9 +14,20 @@ The interface specifications are aligned with the DGC schema specification publi
   patient management software to issue [DGC](https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/covid-19-digital-green-certificates)
   compliant certificates.
   
+## Integration scenarios
+The following table illustrates how the solution can be integrated into existing solutions:
+
+| Scenario | Description | 
+| --- | --- | 
+| 1. Medical Practitioner office | Solution is integrated in the primary IT solution of the doctor. Solution is connected to the Telematik Infratructure and leverages the SMC-B as primary authentication solution.|
+| 2. Vaccination Center | Solution is integrated in the primary IT solution of the vaccination center. Solution is connecto to the internet and leverages client-certificate authentication. Software solution is required to have a strong user authentication based on BSI req. like hardware-tokens and user credentials |  
+
+
 ## Authentication
+In order to use the mentioned APIs different authentication options exists. 
 
 - [Authentication with TI SMCB](SMCB-Authentication.md)
+- Authentication with client-certificate (mTLS)
 
 ## Additional Information
 
