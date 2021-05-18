@@ -23,7 +23,7 @@ info:
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,7 +32,7 @@ info:
     limitations under the License.
     ```
 
-  version: 2.0.0
+  version: 2.1.0
   license:
     name: 'Apache License, Version 2.0'
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -61,21 +61,78 @@ paths:
         **Applications:** vaccination center software, patient information systems, integrators
       requestBody:
         description: >-
-          Vaccination information. The value-sets are defined in the
+          Digital Green Certificate request information. The value-sets are defined in the
           [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
         content:
+          application/vnd.dgc.v1+json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/VaccinationCertificateRequest'
+                - $ref: '#/components/schemas/RecoveryCertificateRequest'
+                - $ref: '#/components/schemas/TestCertificateRequest'
+            examples:
+              Vaccination Certification Request:
+                description: This is an example for a vaccination certification request.
+                value:
+                  nam:
+                    fn: "Musterfrau-Dießner"
+                    gn: "Erika Dörte"
+                  dob: "1979-04-14"
+                  v:
+                    - id: "IZ28215B"
+                      tg: "840539006"
+                      vp: "1119305005"
+                      mp: "EU/1/20/1528"
+                      ma: "ORG-100001699"
+                      dn: 1
+                      sd: 2
+                      dt: "2021-04-14"
+              Recovery Certification Request:
+                description: This is an example for a vaccination certification request.
+                value:
+                  nam:
+                    fn: "Musterfrau-Dießner"
+                    gn: "Erika Dörte"
+                  dob: "1979-04-14"
+                  r:
+                    - id: "BSNR12345"
+                      tg: "840539006"
+                      fr: "2021-04-21"
+                      df: "2021-05-01"
+                      du: "2021-10-21"
+              Test Certification Request:
+                value:
+                  nam:
+                    fn: "Musterfrau-Dießner"
+                    gn: "Erika Dörte"
+                  dob: "1979-04-14"
+                  t:
+                    - id: "TC12345"
+                      tg: "840539006"
+                      tt: "LP6464-4"
+                      nm: "Roche LightCycler qPCR"
+                      tr: "260415000"
+                      sc: "2021-04-13T14:20:00+00:00"
+                      dr: "2021-04-13T20:00:01+00:00"
+                      tc: "Hauptbahnhof Köln"
           application/json: #deprecated and required for backwards compatability
             schema:
-              $ref: '#/components/schemas/VaccinationRequest'
-          application/vaccination.certificate.v1+json:
-            schema:
-              $ref: '#/components/schemas/VaccinationRequest'
-          application/recovery.certificate.v1+json:
-            schema:
-              $ref: '#/components/schemas/RecoveryRequest'
-          application/test.certificate.v1+json:
-            schema:
-              $ref: '#/components/schemas/TestRequest'
+              $ref: '#/components/schemas/VaccinationCertificateRequest'
+            example:
+              nam:
+                fn: "Musterfrau-Dießner"
+                gn: "Erika Dörte"
+              dob: "1979-04-14"
+              v:
+                - id: "IZ28215B"
+                  tg: "840539006"
+                  vp: "1119305005"
+                  mp: "EU/1/20/1528"
+                  ma: "ORG-100001699"
+                  dn: 1
+                  sd: 2
+                  dt: "2021-04-14"
+
       responses:
         '200':
           description: Certificate response as PDF, encoded or binary token.
@@ -152,10 +209,10 @@ components:
   # Request and response schema definitions
   # ===========================================================
   schemas:
-
-    CertificateBaseRequest:
+    CertificateRequestBase:
       description: >-
-        Recovery request object. The value-sets are defined in the
+        Common Digital Green Certificate (DGC) request data containing the name and date of birth of the person
+        receiving the certificate.
       type: object
       required:
         - nam
@@ -188,40 +245,61 @@ components:
           pattern: '(19|20)\d{2}-\d{2}-\d{2}'
           example: '1979-04-14'
 
-
-
-    VaccinationRequest:
+    VaccinationCertificateRequest:
       allOf:
-        - $ref: '#/components/schemas/CertificateBaseRequest'
+        - $ref: '#/components/schemas/CertificateRequestBase'
         - type: object
           description: >-
-            Vaccination request object. The value-sets are defined in the
+            Vaccination certificate request object. The value-sets are defined in the
             [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
           required:
             - v
           properties:
             v:
-              description: Vaccination Group
+              description: Vaccination Certificate Entry
               type: array
               items:
-                $ref: '#/components/schemas/Vaccination'
+                $ref: '#/components/schemas/VaccinationEntry'
               minItems: 1
-          example:
-            nam:
-              fn: "Musterfrau-Dießner"
-              gn: "Erika Dörte"
-            dob: "1979-04-14"
-            v:
-              - id: "IZ28215B"
-                tg: "840539006"
-                vp: "1119305005"
-                mp: "EU/1/20/1528"
-                ma: "ORG-100001699"
-                dn: 1
-                sd: 2
-                dt: "2021-04-14"
+              maxItems: 1
 
-    Vaccination:
+    RecoveryCertificateRequest:
+      allOf:
+        - $ref: '#/components/schemas/CertificateRequestBase'
+        - type: object
+          description: >-
+            Recovery certificate request object. The value-sets are defined in the
+            [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
+          required:
+            - r
+          properties:
+            r:
+              description: Recovery Certificate Entry
+              type: array
+              items:
+                $ref: '#/components/schemas/RecoveryEntry'
+              minItems: 1
+              maxItems: 1
+
+    TestCertificateRequest:
+      allOf:
+        - $ref: '#/components/schemas/CertificateRequestBase'
+        - type: object
+          description: >-
+            Test certificate request object. The value-sets are defined in the
+            [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
+          required:
+            - t
+          properties:
+            t:
+              description: Test Group
+              type: array
+              items:
+                $ref: '#/components/schemas/TestEntry'
+              minItems: 1
+              maxItems: 1
+
+    VaccinationEntry:
       description: Single vaccination data entry.
       type: object
       required:
@@ -254,103 +332,71 @@ components:
         sd:
           $ref: 'dgc-schema.json#/$defs/dose_posint'
         dt:
-          description: Date of Vaccination
+          description: ISO 8601 date of the vaccination
           type: string
           format: date
 
-    RecoveryRequest:
-      allOf:
-        - $ref: '#/components/schemas/CertificateBaseRequest'
-        - type: object
-          description: >-
-            Recovery request object. The value-sets are defined in the
-            [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
-          required:
-            - r
-          properties:
-            r:
-              description: Recovery Group
-              type: array
-              items:
-                $ref: '#/components/schemas/RecoveryEntry'
-              minItems: 1
-
-    TestRequest:
-      allOf:
-        - $ref: '#/components/schemas/CertificateBaseRequest'
-        - type: object
-          description: >-
-            Recovery request object. The value-sets are defined in the
-            [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
-          required:
-            - t
-          properties:
-            t:
-              description: Test Group
-              type: array
-              items:
-                $ref: '#/components/schemas/TestEntry'
-              minItems: 1
-
     RecoveryEntry:
-      description: Recovery Entry
+      description: Single recovery data entry.
       type: object
       required:
+        - id
         - tg
         - fr
-        - co
         - is
         - df
         - du
-        - ci
       properties:
+        id:
+          description: >-
+            Identifier of the health professional location (i.e. BSNR or similar identifer).
+            It will be used in the construction of the DGCI (digitial green certificate identifier).
+            Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed.
+          type: string
+          pattern: "^[0-9A-Z]+$"
         tg:
           $ref: 'dgc-schema.json#/$defs/disease-agent-targeted'
         fr:
-          description: ISO 8601 Date of First Positive Test Result
+          description: First positive test result date as ISO 8601.
           type: string
           format: date
-        co:
-          description: Country of Test
-          $ref: 'dgc-schema.json#/$defs/country_vt'
         is:
-          description: Certificate Issuer
           $ref: 'dgc-schema.json#/$defs/issuer'
         df:
-          description: 'ISO 8601 Date: Certificate Valid From'
+          description: Certificate valid from date as ISO 8601.
           type: string
           format: date
         du:
-          description: Certificate Valid Until
+          description: Certificate valid until date as ISO 8601.
           type: string
           format: date
-        ci:
-          description: 'Unique Certificate Identifier, UVCI'
-          $ref: 'dgc-schema.json#/$defs/certificate_id'
 
     TestEntry:
       description: Test Entry
       required:
+        - id
         - tg
         - tt
         - sc
         - tr
         - tc
-        - co
-        - is
-        - ci
       type: object
       properties:
+        id:
+          description: >-
+            Identifier of the test center location (i.e. postal code or similar identifer).
+            It will be used in the construction of the DGCI (digitial green certificate identifier).
+            Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed.
+          type: string
+          pattern: "^[0-9A-Z]+$"
         tg:
           $ref: 'dgc-schema.json#/$defs/disease-agent-targeted'
         tt:
-          description: Type of Test
           $ref: 'dgc-schema.json#/$defs/test-type'
         nm:
           description: NAA Test Name
           type: string
         ma:
-          description: RAT Test name and manufacturer
           $ref: 'dgc-schema.json#/$defs/test-manf'
         sc:
           description: Date/Time of Sample Collection
@@ -361,21 +407,11 @@ components:
           type: string
           format: date-time
         tr:
-          description: Test Result
           $ref: 'dgc-schema.json#/$defs/test-result'
         tc:
-          description: Testing Centre
+          description: Test center or laboratory
           type: string
           maxLength: 50
-        co:
-          description: Country of Test
-          $ref: 'dgc-schema.json#/$defs/country_vt'
-        is:
-          description: Certificate Issuer
-          $ref: 'dgc-schema.json#/$defs/issuer'
-        ci:
-          description: 'Unique Certificate Identifier, UVCI'
-          $ref: 'dgc-schema.json#/$defs/certificate_id'
 
     CertificateEncoded:
       description: >-
