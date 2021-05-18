@@ -173,7 +173,7 @@ paths:
         be filled with the actual payload that was used in the process of creating the signature hash. This endpoint
         is used for a privacy friendly way to remotely sign certificates.
 
-        **Applications:** vaccination web frontend
+        **Applications:** secure backend integrators, vaccination web frontend
       requestBody:
         description: Base64 encoded SHA256 message digest of the CBOR Web Token.
         content:
@@ -431,7 +431,7 @@ components:
 
     CertificationPDF:
       description: >-
-        A rendered PDF document containing the vaccination certificate information including a
+        A rendered PDF document containing the certificate information including a
         Digital Green Certificate (DGC) QR Code according to EU specification.
       type: string
       format: binary
