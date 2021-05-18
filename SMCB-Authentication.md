@@ -53,6 +53,14 @@ The signature is created based on the provided challenge and does not need to be
 
 **Signature Type:** Depends on certificate
 
+**SMC-B Certificate Requirements**
+
+| OID | Value | Description |
+| --- | --- | --- |
+| Policy  | 1.2.276.0.76.4.77 | "OID-Festlegung Zertifikatstyp" |
+| ProfessionOID  | 1.2.276.0.76.4.50 | "Betriebsstätte Arzt" |
+
+Test environments are not limited in respect to the `ProfessionOID`.
 
 ## 4. Submit Signed challenge and SMCB public certificate
 
