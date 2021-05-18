@@ -81,7 +81,7 @@ openssl pkcs12 -in demo.pfx -nocerts -out demo.key
 
 For integrators (vaccination centers, patient information systems, etc.) the issuer api provides a way to send
 certification requests. The following example demonstrators how to authenticate and use
-the [API](../vaccination-certify-api.yaml) to request a certificate for a vaccination data set:
+the [API](../dgc-certify-api.yaml) to request a certificate for a vaccination data set:
 
 ```bash
 # request a Base45 encoded certificate
