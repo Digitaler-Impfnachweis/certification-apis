@@ -39,7 +39,7 @@ info:
   contact:
     name: UBIRCH GmbH
     url: https://ubirch.com
-    email: mailto:support@ubirch.com
+    email: support@ubirch.com
 paths:
   # ===========================================================
   # Available API endpoints
