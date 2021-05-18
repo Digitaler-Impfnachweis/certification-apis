@@ -3,7 +3,7 @@
   "$id": "https://id.uvci.eu/DGC.combined-schema.json",
   "title": "EU DGC",
   "description": "EU Digital Green Certificate",
-  "$comment": "Schema version 1.0.0",
+  "$comment": "Schema version 1.0.1",
   "required": [
     "ver",
     "nam",
@@ -207,7 +207,7 @@
         },
         "tt": {
           "description": "Type of Test",
-          "type": "string"
+          "$ref": "#/$defs/test-type"
         },
         "nm": {
           "description": "NAA Test Name",
@@ -324,6 +324,11 @@
       "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.9",
       "type": "string",
       "valueset-uri": "valuesets/test-results.json"
+    },
+    "test-type": {
+      "description": "EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0, 2021-04-16, section 2.7",
+      "type": "string",
+      "valueset-uri": "valuesets/test-type.json"
     }
   }
 }
