@@ -38,7 +38,7 @@ Response of step 1 contains the following header parameters:
 
 | Header | Value | Description |
 | --- | --- | --- |
-| x-auth-challenge  | ... | UUID as base64 encoded string |
+| x-auth-challenge  | ... | Challenge in form of a UUID |
 | Location  | <action-uri> | URI |
 
 Both parameters are important and need to be saved temporary since they're relevant for step 4.
