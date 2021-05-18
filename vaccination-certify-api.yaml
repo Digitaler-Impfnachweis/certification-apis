@@ -52,7 +52,7 @@ paths:
       description: |
         # Description
 
-        Issue a vaccination certificate based on the provided input according to spec 1.0.0 of the
+        Issue a health certificate based on the provided input according to spec 1.0.0 of the
         [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0).
 
         **Authentication:** clients connecting via Internet (not [SNK](https://www.kbv.de/html/sicheres_netz.php)/[TI](https://www.gematik.de/telematikinfrastruktur/))
@@ -64,57 +64,6 @@ paths:
           Digital Green Certificate request information. The value-sets are defined in the
           [EU eHealthNetwork: Value Sets for Digital Green Certificates. version 1.0](https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_dt-specifications_en.pdf).
         content:
-          application/vnd.dgc.v1+json:
-            schema:
-              oneOf:
-                - $ref: '#/components/schemas/VaccinationCertificateRequest'
-                - $ref: '#/components/schemas/RecoveryCertificateRequest'
-                - $ref: '#/components/schemas/TestCertificateRequest'
-            examples:
-              Vaccination Certification Request:
-                description: This is an example for a vaccination certification request.
-                value:
-                  nam:
-                    fn: "Musterfrau-Dießner"
-                    gn: "Erika Dörte"
-                  dob: "1979-04-14"
-                  v:
-                    - id: "IZ28215B"
-                      tg: "840539006"
-                      vp: "1119305005"
-                      mp: "EU/1/20/1528"
-                      ma: "ORG-100001699"
-                      dn: 1
-                      sd: 2
-                      dt: "2021-04-14"
-              Recovery Certification Request:
-                description: This is an example for a vaccination certification request.
-                value:
-                  nam:
-                    fn: "Musterfrau-Dießner"
-                    gn: "Erika Dörte"
-                  dob: "1979-04-14"
-                  r:
-                    - id: "BSNR12345"
-                      tg: "840539006"
-                      fr: "2021-04-21"
-                      df: "2021-05-01"
-                      du: "2021-10-21"
-              Test Certification Request:
-                value:
-                  nam:
-                    fn: "Musterfrau-Dießner"
-                    gn: "Erika Dörte"
-                  dob: "1979-04-14"
-                  t:
-                    - id: "TC12345"
-                      tg: "840539006"
-                      tt: "LP6464-4"
-                      nm: "Roche LightCycler qPCR"
-                      tr: "260415000"
-                      sc: "2021-04-13T14:20:00+00:00"
-                      dr: "2021-04-13T20:00:01+00:00"
-                      tc: "Hauptbahnhof Köln"
           application/json: #deprecated and required for backwards compatability
             schema:
               $ref: '#/components/schemas/VaccinationCertificateRequest'
@@ -132,6 +81,67 @@ paths:
                   dn: 1
                   sd: 2
                   dt: "2021-04-14"
+          application/vnd.dgc.v1+json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/VaccinationCertificateRequest'
+                - $ref: '#/components/schemas/RecoveryCertificateRequest'
+                - $ref: '#/components/schemas/TestCertificateRequest'
+            examples:
+              Vaccination Certification Request:
+                description: |
+                  **NOT IMPLEMENTED YET**
+
+                  This is an example for a vaccination certification request.
+                value:
+                  nam:
+                    fn: "Musterfrau-Dießner"
+                    gn: "Erika Dörte"
+                  dob: "1979-04-14"
+                  v:
+                    - id: "IZ28215B"
+                      tg: "840539006"
+                      vp: "1119305005"
+                      mp: "EU/1/20/1528"
+                      ma: "ORG-100001699"
+                      dn: 1
+                      sd: 2
+                      dt: "2021-04-14"
+              Recovery Certification Request:
+                description:  |
+                  **NOT IMPLEMENTED YET**
+
+                  This is an example for a vaccination certification request.
+                value:
+                  nam:
+                    fn: "Musterfrau-Dießner"
+                    gn: "Erika Dörte"
+                  dob: "1979-04-14"
+                  r:
+                    - id: "BSNR12345"
+                      tg: "840539006"
+                      fr: "2021-04-21"
+                      df: "2021-05-01"
+                      du: "2021-10-21"
+              Test Certification Request:
+                description: |
+                  **NOT IMPLEMENTED YET**
+
+                  This is an example for a test certification request.
+                value:
+                  nam:
+                    fn: "Musterfrau-Dießner"
+                    gn: "Erika Dörte"
+                  dob: "1979-04-14"
+                  t:
+                    - id: "TC12345"
+                      tg: "840539006"
+                      tt: "LP6464-4"
+                      nm: "Roche LightCycler qPCR"
+                      tr: "260415000"
+                      sc: "2021-04-13T14:20:00+00:00"
+                      dr: "2021-04-13T20:00:01+00:00"
+                      tc: "Hauptbahnhof Köln"
 
       responses:
         '200':
@@ -175,7 +185,9 @@ paths:
 
         **Applications:** secure backend integrators, vaccination web frontend
       requestBody:
-        description: Base64 encoded SHA256 message digest of the CBOR Web Token.
+        description: |
+          Base64 encoded SHA256 message digest of the CBOR Web Token prior to the application
+          of the signature algorithm.
         content:
           text/plain:
             schema:
