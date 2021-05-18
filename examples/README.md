@@ -62,6 +62,21 @@ In order to access parts of the API you will need an X.509 client certificate. T
 integrators upon request. In the following sections we use `demo.key` for the private key, `demo.crt` for the client
 certificate.
 
+The client certificate is provided securely as a PFX file. Converting your certificate (pfx) to `demo.key` and `demo.crt`:
+```shell
+openssl pkcs12 -in demo.pfx -clcerts -nokeys -out demo.crt
+openssl pkcs12 -in demo.pfx -nocerts -out demo.key
+```
+
+> **🔐 If you need a .p12 file, you can use openssl to convert the .pfx:**
+> ```shell
+> openssl pkcs12 -export -out demo.p12 -inkey demo.key -in demo.crt
+> ```
+> The .p12 file can also be tested with the `curl` call above:
+> ```shell
+> curl ... --cert-type p12 --cert demo.p12:password ...
+> ```
+
 ## Certificate Issuing
 
 For integrators (vaccination centers, patient information systems, etc.) the issuer api provides a way to send
