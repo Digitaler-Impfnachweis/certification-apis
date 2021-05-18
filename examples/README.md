@@ -72,7 +72,7 @@ openssl pkcs12 -in demo.pfx -nocerts -out demo.key
 > ```shell
 > openssl pkcs12 -export -out demo.p12 -inkey demo.key -in demo.crt
 > ```
-> The .p12 file can also be tested with the `curl` call above:
+> The .p12 file can also be tested with the `curl` call below:
 > ```shell
 > curl ... --cert-type p12 --cert demo.p12:password ...
 > ```
