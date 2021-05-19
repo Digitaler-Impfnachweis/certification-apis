@@ -59,22 +59,14 @@ Pseudo-code representation of the decoded CBOR Web Token (CWT):
 ## Preparation
 
 In order to access parts of the API you will need an X.509 client certificate. This will be granted to authorized
-integrators upon request. In the following sections we use `demo.key` for the private key, `demo.crt` for the client
-certificate.
+integrators upon request. In the following sections we use `demo.pfx` for the provided P12 file, and `demo.pwd` 
+for the password file protecting the P12 file.
 
-The client certificate is provided securely as a PFX file. Converting your certificate (pfx) to `demo.key` and `demo.crt`:
-```shell
-openssl pkcs12 -in demo.pfx -clcerts -nokeys -out demo.crt
-openssl pkcs12 -in demo.pfx -nocerts -out demo.key
-```
+The client certificate is provided securely as a PFX file. The password is provided in a separate file for testing.
 
-> **🔐 If you need a .p12 file, you can use openssl to convert the .pfx:**
+> 🔐 For JVM based systems, a JKS may be relevant:
 > ```shell
-> openssl pkcs12 -export -out demo.p12 -inkey demo.key -in demo.crt
-> ```
-> The .p12 file can also be tested with the `curl` call below:
-> ```shell
-> curl ... --cert-type p12 --cert demo.p12:password ...
+> keytool -importkeystore -srckeystore demo.pfx -srcstoretype pkcs12 -destkeystore demo.jks -deststoretype JKS
 > ```
 
 ## Certificate Issuing
@@ -88,8 +80,8 @@ the [API](../dgc-certify-api.yaml) to request a certificate for a vaccination da
 curl \
   --location \
   --request POST 'https://api.certify.demo.ubirch.com/api/certify/v2/issue' \
-  --key demo.key \
-  --cert demo.crt \
+  --cert-type p12 \
+  --cert demo.pfx:$(cat demo.pwd) \
   --header 'Accept: application/cbor+base45' \
   --header 'Content-Type: application/json' \
   --data-raw '{
