@@ -57,7 +57,7 @@ Both parameters are important and need to be saved temporary since they're relev
 
 This step takes care of signing the provided challenge with the SMCB. The steps are not illustrated here because there are dependent on the framework of the integrating system. Details about the interaction with the SMCB can be seen in the [sequence diagram](authentication/seq_diagram_smcb_iam.png).
 
-The signature is created based on the provided challenge and does not need to be hashed.
+The signature is created based on the provided challenge and must be hashed with `SHA-256`.
 
 **Supported Ciphers:** RSA and ECC
 
