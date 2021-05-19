@@ -5,6 +5,16 @@ The following diagram illustrates this flow
 
 ![](authentication/seq_diagram_smcb_iam.png)
 
+# Official Endpoints
+
+| Environment | Endpoint | Details |
+| --- | --- | --- |
+| TI Referenz Umgebung  (RU) | https://id.ru.impfnachweis.info/auth/realms/ubirch-certificator/protocol/openid-connect/auth | Deployed|
+| TI Produktions Umgebung (PU) | https://id.impfnachweis.info/auth/realms/ubirch-certificator/protocol/openid-connect/auth | Rollout pending |
+
+Access to a simplified test environment available in the internet is documentet [here](https://github.com/Digitaler-Impfnachweis/certification-apis/discussions/14).
+
+# Authentication flow
 
 ## 1. Trigger smcb authentication flow
 
