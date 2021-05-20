@@ -61,8 +61,16 @@ The signature is created based on the provided challenge and must be hashed with
 
 **Supported Ciphers:** RSA and ECC
 
-**Signature Type:** Depends on certificate
+**Signature Scheme:** RSASSA-PSS 
 
+**SMC-B Certificate Requirements**
+
+| OID | Value | Description |
+| --- | --- | --- |
+| Policy  | 1.2.276.0.76.4.77 | "OID-Festlegung Zertifikatstyp" |
+| ProfessionOID  | 1.2.276.0.76.4.50 | "Betriebsstätte Arzt" |
+
+Test environments are not limited in respect to the `ProfessionOID`.
 
 ## 4. Submit Signed challenge and SMCB public certificate
 
