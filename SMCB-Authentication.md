@@ -51,7 +51,7 @@ The signature is created based on the provided challenge and does not need to be
 
 **Supported Ciphers:** RSA and ECC
 
-**Signature Type:** Depends on certificate
+**Signature Scheme:** RSASSA-PSS 
 
 **SMC-B Certificate Requirements**
 
