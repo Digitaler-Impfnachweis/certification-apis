@@ -146,6 +146,12 @@ paths:
       responses:
         '200':
           description: Certificate response as PDF, encoded or binary token.
+          headers:
+            X-DGC-Id:
+              schema:
+                $ref: 'dgc-schema.json#/$defs/certificate_id'
+              description: The generated certificate identifier contained in the certificate.
+              example: "01DE/IZ999999X/3B05FC5T96C6HY3YS4FS6H8DD#Z"
           content:
             application/cbor+base45:
               schema:
