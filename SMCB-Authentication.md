@@ -22,7 +22,7 @@ OIDC Authorization Endpoint: `https://<host>/auth/realms/<realm>/protocol/openid
 
 | Query-Param | Value | Description |
 | --- | --- | --- |
-| client_id  | cert-auth | example |
+| client_id  | user-access-ti | example |
 | redirect_uri | connector://authenticated | custom-uri scheme |
 | response_type  | code |  |
 | scope | openid | |
