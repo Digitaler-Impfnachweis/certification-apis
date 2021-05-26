@@ -128,4 +128,4 @@ Sample response:
   "scope": "openid email profile"
 }
 ```
-
+Please note that a system is meant to reuse the token until it expires. A standard OIDC [refreh_token flow](https://openid.net/specs/openid-connect-core-1_0.html#RefreshTokens) should be imlemented.  
