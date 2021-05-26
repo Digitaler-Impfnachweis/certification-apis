@@ -109,7 +109,7 @@ OIDC Token endpoint: `https://<host>/auth/realms/<realm>/protocol/openid-connect
 | --- | --- | --- |
 | grant_type  | authorization_code | - |
 | redirect_uri | connector://authenticated | custom-uri scheme |
-| client_id  | cert-auth|  |
+| client_id  | user-access-ti |  |
 | session_state | ... | session state retrieved in previous request |
 | code | ... | the auth code retrieved in previous request |
 
