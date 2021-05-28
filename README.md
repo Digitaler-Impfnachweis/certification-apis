@@ -19,12 +19,12 @@ The following table illustrates how the solution can be integrated into existing
 
 | Scenario | Description | 
 | --- | --- | 
-| 1. Medical Practitioner office | Solution is integrated in the primary IT solution of the doctor. Solution is connected to the Telematik Infratructure and leverages the SMC-B as primary authentication solution.|
-| 2. Vaccination Center | Solution is integrated in the primary IT solution of the vaccination center. Solution is connecto to the internet and leverages client-certificate authentication. Software solution is required to have a strong user authentication based on BSI req. like hardware-tokens and user credentials |  
+| 1. Medical Practitioner office | Solution is integrated in the primary IT solution of the doctor. Solution is connected to the Telematik Infrastructure and leverages the SMC-B as primary authentication solution.|
+| 2. Vaccination Center | Solution is integrated in the primary IT solution of the vaccination center. Solution is connected to the internet and leverages client-certificate authentication. Software solution is required to have a strong user authentication based on BSI req. like hardware-tokens and user credentials |  
 
 
 ## Authentication
-In order to use the mentioned APIs different authentication options exists. 
+In order to use the mentioned APIs different authentication options exist. 
 
 - [Authentication with TI SMCB](SMCB-Authentication.md)
 - Authentication with client-certificate (mTLS)
