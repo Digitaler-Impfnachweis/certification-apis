@@ -12,7 +12,7 @@ The following diagram illustrates this flow
 | TI Referenz Umgebung  (RU) | https://id.ru.impfnachweis.info/auth/realms/ubirch-certify/protocol/openid-connect/auth | Deployed|
 | TI Produktions Umgebung (PU) | https://id.impfnachweis.info/auth/realms/bmg-ti-certify/protocol/openid-connect/auth | Rollout pending |
 
-Access to a simplified test environment available in the internet is documentet [here](https://github.com/Digitaler-Impfnachweis/certification-apis/discussions/14).
+Access to a simplified test environment available in the internet is documented [here](https://github.com/Digitaler-Impfnachweis/certification-apis/discussions/14).
 
 # Authentication flow
 
@@ -128,4 +128,4 @@ Sample response:
   "scope": "openid email profile"
 }
 ```
-Please note that a system is meant to reuse the token until it expires. A standard OIDC [refreh_token flow](https://openid.net/specs/openid-connect-core-1_0.html#RefreshTokens) should be imlemented.  
+Please note that a system is meant to reuse the token until it expires. A standard OIDC [refresh_token flow](https://openid.net/specs/openid-connect-core-1_0.html#RefreshTokens) should be imlemented.  
