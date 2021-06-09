@@ -9,8 +9,8 @@ The following diagram illustrates this flow
 
 | Environment | Endpoint | Details |
 | --- | --- | --- |
-| TI Referenz Umgebung  (RU) | https://id.ru.impfnachweis.info/auth/realms/ubirch-certify/protocol/openid-connect/auth | Deployed|
-| TI Produktions Umgebung (PU) | https://id.impfnachweis.info/auth/realms/bmg-ti-certify/protocol/openid-connect/auth | Rollout pending |
+| TI Referenz Umgebung  (RU) | https://id.ru.impfnachweis.info/auth/realms/ubirch-certify/protocol/openid-connect/auth |  [Release 2.1.0](https://github.com/Digitaler-Impfnachweis/certification-apis/tree/2.1.0) deployed |
+| TI Produktions Umgebung (PU) | https://id.impfnachweis.info/auth/realms/bmg-ti-certify/protocol/openid-connect/auth |  [Release 2.0.0](https://github.com/Digitaler-Impfnachweis/certification-apis/tree/2.0.0) in rollout |
 
 Access to a simplified test environment available in the internet is documented [here](https://github.com/Digitaler-Impfnachweis/certification-apis/discussions/14).
 
