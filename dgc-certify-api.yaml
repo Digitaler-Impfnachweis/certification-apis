@@ -6,6 +6,8 @@ servers:
     description: Endpoint for vaccination centers only - PRODUCTION api server
   - url: https://api.ru.impfnachweis.info
     description: Endpoint for medical practitioners with TI access only - STAGING api server
+  - url: https://api-pvs.certify.demo.ubirch.com
+    description: Endpoint for medical practitioners with Gematik Kops simulator access only - requires no client-cert required - STAGING api server
   - url: https://api.impfnachweis.info
     description: Endpoint for medical practitioners with TI access only -  PRODUCTION api server   
 info:
