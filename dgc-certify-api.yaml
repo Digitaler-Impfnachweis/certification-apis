@@ -68,7 +68,7 @@ paths:
         content:
           application/json: #deprecated and required for backwards compatability
             schema:
-              $ref: '#/components/schemas/VaccinationCertificateRequest'
+              '$ref': '#/components/schemas/VaccinationCertificateRequest'
             example:
               nam:
                 fn: "Musterfrau-Dießner"
@@ -86,9 +86,9 @@ paths:
           application/vnd.dgc.v1+json:
             schema:
               oneOf:
-                - $ref: '#/components/schemas/VaccinationCertificateRequest'
-                - $ref: '#/components/schemas/RecoveryCertificateRequest'
-                - $ref: '#/components/schemas/TestCertificateRequest'
+                - '$ref': '#/components/schemas/VaccinationCertificateRequest'
+                - '$ref': '#/components/schemas/RecoveryCertificateRequest'
+                - '$ref': '#/components/schemas/TestCertificateRequest'
             examples:
               Vaccination Certification Request:
                 description: |
@@ -151,19 +151,19 @@ paths:
           headers:
             X-DGC-Id:
               schema:
-                $ref: 'dgc-schema.json#/$defs/certificate_id'
+                '$ref': 'dgc-schema.json#/$defs/certificate_id'
               description: The generated certificate identifier contained in the certificate.
               example: "01DE/IZ999999X/3B05FC5T96C6HY3YS4FS6H8DD#Z"
           content:
             application/cbor+base45:
               schema:
-                $ref: '#/components/schemas/CertificateEncoded'
+                '$ref': '#/components/schemas/CertificateEncoded'
             application/cbor:
               schema:
-                $ref: '#/components/schemas/CertificateBinary'
+                '$ref': '#/components/schemas/CertificateBinary'
             application/pdf:
               schema:
-                $ref: '#/components/schemas/CertificationPDF'
+                '$ref': '#/components/schemas/CertificationPDF'
         '400':
           description: Invalid Request
           # WIP: define extended error messages if input is wrong
@@ -267,7 +267,7 @@ components:
 
     VaccinationCertificateRequest:
       allOf:
-        - $ref: '#/components/schemas/CertificateRequestBase'
+        - '$ref': '#/components/schemas/CertificateRequestBase'
         - type: object
           description: >-
             Vaccination certificate request object. The value-sets are defined in the
@@ -279,13 +279,13 @@ components:
               description: Vaccination Certificate Entry
               type: array
               items:
-                $ref: '#/components/schemas/VaccinationEntry'
+                '$ref': '#/components/schemas/VaccinationEntry'
               minItems: 1
               maxItems: 1
 
     RecoveryCertificateRequest:
       allOf:
-        - $ref: '#/components/schemas/CertificateRequestBase'
+        - '$ref': '#/components/schemas/CertificateRequestBase'
         - type: object
           description: >-
             Recovery certificate request object. The value-sets are defined in the
@@ -297,13 +297,13 @@ components:
               description: Recovery Certificate Entry
               type: array
               items:
-                $ref: '#/components/schemas/RecoveryEntry'
+                '$ref': '#/components/schemas/RecoveryEntry'
               minItems: 1
               maxItems: 1
 
     TestCertificateRequest:
       allOf:
-        - $ref: '#/components/schemas/CertificateRequestBase'
+        - '$ref': '#/components/schemas/CertificateRequestBase'
         - type: object
           description: >-
             Test certificate request object. The value-sets are defined in the
@@ -315,7 +315,7 @@ components:
               description: Test Group
               type: array
               items:
-                $ref: '#/components/schemas/TestEntry'
+                '$ref': '#/components/schemas/TestEntry'
               minItems: 1
               maxItems: 1
 
@@ -340,17 +340,17 @@ components:
           type: string
           pattern: "^[0-9A-Z]+$"
         tg:
-          $ref: 'dgc-schema.json#/$defs/disease-agent-targeted'
+          '$ref': 'dgc-schema.json#/$defs/disease-agent-targeted'
         vp:
-          $ref: 'dgc-schema.json#/$defs/vaccine-prophylaxis'
+          '$ref': 'dgc-schema.json#/$defs/vaccine-prophylaxis'
         mp:
-          $ref: 'dgc-schema.json#/$defs/vaccine-medicinal-product'
+          '$ref': 'dgc-schema.json#/$defs/vaccine-medicinal-product'
         ma:
-          $ref: 'dgc-schema.json#/$defs/vaccine-mah-manf'
+          '$ref': 'dgc-schema.json#/$defs/vaccine-mah-manf'
         dn:
-          $ref: 'dgc-schema.json#/$defs/dose_posint'
+          '$ref': 'dgc-schema.json#/$defs/dose_posint'
         sd:
-          $ref: 'dgc-schema.json#/$defs/dose_posint'
+          '$ref': 'dgc-schema.json#/$defs/dose_posint'
         dt:
           description: ISO 8601 date of the vaccination
           type: string
@@ -375,13 +375,13 @@ components:
           type: string
           pattern: "^[0-9A-Z]+$"
         tg:
-          $ref: 'dgc-schema.json#/$defs/disease-agent-targeted'
+          '$ref': 'dgc-schema.json#/$defs/disease-agent-targeted'
         fr:
           description: First positive test result date as ISO 8601.
           type: string
           format: date
         is:
-          $ref: 'dgc-schema.json#/$defs/issuer'
+          '$ref': 'dgc-schema.json#/$defs/issuer'
         df:
           description: Certificate valid from date as ISO 8601.
           type: string
@@ -410,14 +410,14 @@ components:
           type: string
           pattern: "^[0-9A-Z]+$"
         tg:
-          $ref: 'dgc-schema.json#/$defs/disease-agent-targeted'
+          '$ref': 'dgc-schema.json#/$defs/disease-agent-targeted'
         tt:
-          $ref: 'dgc-schema.json#/$defs/test-type'
+          '$ref': 'dgc-schema.json#/$defs/test-type'
         nm:
           description: NAA Test Name
           type: string
         ma:
-          $ref: 'dgc-schema.json#/$defs/test-manf'
+          '$ref': 'dgc-schema.json#/$defs/test-manf'
         sc:
           description: Date/Time of Sample Collection
           type: string
@@ -427,7 +427,7 @@ components:
           type: string
           format: date-time
         tr:
-          $ref: 'dgc-schema.json#/$defs/test-result'
+          '$ref': 'dgc-schema.json#/$defs/test-result'
         tc:
           description: Test center or laboratory
           type: string
