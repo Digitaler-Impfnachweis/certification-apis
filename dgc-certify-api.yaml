@@ -92,8 +92,6 @@ paths:
             examples:
               Vaccination Certification Request:
                 description: |
-                  **NOT IMPLEMENTED YET**
-
                   This is an example for a vaccination certification request.
                 value:
                   nam:
@@ -111,8 +109,6 @@ paths:
                       dt: "2021-04-14"
               Recovery Certification Request:
                 description:  |
-                  **NOT IMPLEMENTED YET**
-
                   This is an example for a vaccination certification request.
                 value:
                   nam:
@@ -127,8 +123,6 @@ paths:
                       du: "2021-10-21"
               Test Certification Request:
                 description: |
-                  **NOT IMPLEMENTED YET**
-
                   This is an example for a test certification request.
                 value:
                   nam:
