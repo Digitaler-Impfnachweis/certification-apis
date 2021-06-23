@@ -22,7 +22,7 @@ OIDC Authorization Endpoint: `https://<host>/auth/realms/<realm>/protocol/openid
 
 | Query-Param | Value | Description |
 | --- | --- | --- |
-| client_id  | `user-access-ti` or `user-access-ti-kops-simulator` | `user-access-ti` requires a RU SMCB . `user-access-ti-kops-simulator` can be used in conjuction with the gematik KOPS. This is only available in the RU environment |
+| client_id  | `user-access-ti` or `user-access-ti-simulator` | `user-access-ti` requires a RU SMCB . `user-access-ti-kops-simulator` can be used in conjuction with the gematik KOPS. This is only available in the RU environment |
 | redirect_uri | connector://authenticated | custom-uri scheme |
 | response_type  | code |  |
 | scope | openid | |
