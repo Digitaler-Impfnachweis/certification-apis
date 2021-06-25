@@ -1,0 +1,91 @@
+openapi: '3.0.1'
+servers:
+  - url: https://de.test.dscg.ubirch.com/trustList/
+    description: Test Environment
+info:
+  title: German Trusted List of DSCs
+  description: >-
+    This endpoint provides access to the List of Document Signing Certificates (DSCs) that Germany considers authorized to sign Digital Green Certificates (DGCs). The list gets periodially updated with the latest list from the [EU Gateway](https://eu-digital-green-certificates.github.io/dgc-gateway/). The data structure of the response is similar to the response from the Gateway - however we add an additional signature of the overall list to ensure authenticity and integrity.
+
+    This is also why this is a plain text response: the first line contains the signature, the second line the actual content, a JSON object of DSC entries.
+ 
+     ```
+    Copyright (C) 2021 IBM Deutschland GmbH
+    Copyright (C) 2021 ubirch GmbH
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+    ```
+  version: '0.1.1'
+  license:
+    name: 'Apache License, Version 2.0'
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+  contact:
+    name: UBIRCH GmbH
+    url: https://ubirch.com
+    email: support@ubirch.com
+paths:
+  # ===========================================================
+  # Available API endpoints
+  # ===========================================================
+  /DSC/:
+    get:
+      tags:
+        - Trusted List of DSCs
+      summary: The Trusted List of Document Signing Certificates.
+      responses:
+        '200':
+          description: >-
+            Returns a plain text containing two lines: the signature on the first line and the content on the second line. The content is a JSON map corresponding to the TrustedList datastructure. consists of a JSON array of objects representing the DSCs and additional metadata info.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: >-
+                  yIMFc5Gz0... W+aA+/udQ==
+                  {"certificates":[{"certificateType": "DSC", "country": "DE", "kid": "DEsVUSvpFAE=", "rawData": "MIIGwI...If1QHu/nyDtQ=", "signature": "MIAG...0O1AAAAAAAA", "thumbprint": "0c4b1551...2c6a57477", "timestamp": "2021-05-18T10:36:56+02:00"}, ...]}
+
+components:
+  # ===========================================================
+  # Request and response schema definitions
+  # ===========================================================
+  schemas:
+    TrustedList:
+      type: object
+      properties:
+        certificates:
+          type: array
+          items: 
+            $ref: '#/components/schemas/DSCEntry'
+    DSCEntry:
+      type: object
+      properties:
+        kid:
+          type: string
+          example: qroU+hDDovs=
+        timestamp:
+          type: string
+          format: date-time
+        country:
+          type: string
+          example: SE
+        thumbprint:
+          type: string
+          example: aaba14fa10c3a2fb441a28af0ec1bb4128153b9ddc796b66bfa04b02ea3e103e
+        signature:
+          type: string
+          example: >-
+            o53Ct0... W+VIrYAOQ==
+        rawData:
+          type: string
+          example: >-
+            MIICyDCCAb...Jpux30QRhV5I=
