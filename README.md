@@ -6,12 +6,16 @@ The interface specifications are aligned with the DGC schema specification publi
 
 ## OpenAPI Specifications
 
-- **Issuer API** ([Specification](dgc-certify-api.yaml))
+- **Issuer API** ([OpenAPI Specification](dgc-certify-api.yaml))
 
   Provides endpoints for the web frontend, vaccination center software,
   patient management software to issue [DGC](https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/covid-19-digital-green-certificates)
   compliant certificates.
-  
+
+- **[DSC TrustList Update API](dsc-update/README.md)** ([OpenAPI Specification](dsc-update/dsc-update-api.yaml))
+
+  Provides an endpoint for verifiers to get the latest list of trusted Document Signing Certificates (DSC).
+
 ## Integration scenarios
 The following table illustrates how the solution can be integrated into existing solutions:
 
