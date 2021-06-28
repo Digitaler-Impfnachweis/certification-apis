@@ -73,7 +73,7 @@ The client certificate is provided securely as a PFX file. The password is provi
 
 For integrators (vaccination centers, patient information systems, etc.) the issuer api provides a way to send
 certification requests. The following example demonstrators how to authenticate and use
-the [API](../dgc-certify-api.yaml) to request a certificate for a vaccination data set:
+the [API](../dcc-certify-api.yaml) to request a certificate for a vaccination data set:
 
 ```bash
 # request a Base45 encoded certificate

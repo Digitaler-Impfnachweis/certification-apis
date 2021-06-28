@@ -6,7 +6,7 @@ The interface specifications are aligned with the DGC schema specification publi
 
 ## OpenAPI Specifications
 
-- **Issuer API** ([Specification](dgc-certify-api.yaml))
+- **Issuer API** ([Specification](dcc-certify-api.yaml))
 
   Provides endpoints for the web frontend, vaccination center software,
   patient management software to issue [DGC](https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/covid-19-digital-green-certificates)
