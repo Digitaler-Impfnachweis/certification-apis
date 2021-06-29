@@ -34,7 +34,7 @@ info:
     limitations under the License.
     ```
 
-  version: 2.1.0
+  version: 2.2.0
   license:
     name: 'Apache License, Version 2.0'
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -186,6 +186,48 @@ paths:
         is used for a privacy friendly way to remotely sign certificates.
 
         **Applications:** secure backend integrators, vaccination web frontend
+      parameters:
+        - in: header
+          name: X-Location-Id
+          description: |
+            The location id for which this certificate signature is acquired. Needs to be
+            a SHA256 of the actual location id encoded as hex string.
+          schema:
+            type: string
+            format: hex
+            pattern: "^[A-Za-z0-9]{64}$"
+          example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+#          required: true
+        - in: header
+          name: X-Transaction-Id
+          description: |
+            The transaction id that identifies this request. Needs to be
+            a SHA256 of the actual transaction id encoded as hex string.
+          schema:
+            type: string
+            format: hex
+            pattern: "^[A-Za-z0-9]{64}$"
+          example: 56e9926cd68bf5818e176196b324aeca05a2fe7ea10b486876d194898e9ccc22
+#          required: true
+        - in: header
+          name: X-UBIRCH-DCCType
+          description: |
+            The type of signature to be acquired. V - for vaccination certificates, T - for
+            test certificates, and R - for recovery certificates
+          schema:
+            type: string
+            pattern: "^[VTR]$"
+          examples:
+            vaccination:
+              value: V
+              summary: Request a vaccination certificate gsignature.
+            test:
+              value: T
+              summary: Request a test certificate signature.
+            recovery:
+              value: R
+              summary: Request a recovery certificate signature.
+#          required: true
       requestBody:
         description: |
           Base64 encoded SHA256 message digest of the CBOR Web Token prior to the application
