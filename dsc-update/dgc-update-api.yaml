@@ -2,7 +2,7 @@ openapi: '3.0.1'
 servers:
   - url: https://de.test.dscg.ubirch.com/trustList/
     description: Test / Demo Environment
-  - url: https://de.test.dscg.ubirch.com/trustList/
+  - url: https://de.dscg.ubirch.com/trustList/
     description: Productive Environment
 info:
   title: German Trusted List of DSCs
