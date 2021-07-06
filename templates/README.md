@@ -6,3 +6,5 @@ placeholders in the form `$xx` where `xx` corresponds to the field names of the 
 - [DCC Certificate of Recovery](RecoveryCertificateTemplate_v3.svg)
 - [DCC Test Certificate](TestCertificateTemplate_v3.svg)
 - [DCC Vaccination Certificate](VaccinationCertificateTemplate_v3.svg)
+
+> The templates contain DEMO overlays that need to be removed for production cases.
