@@ -32,6 +32,10 @@ In order to use the mentioned APIs different authentication options exist.
 For implementors the official documentation of the Digital Green Certificate
 can be found on the [EU eHealth Network](https://ec.europa.eu/health/ehealth/key_documents_en) page.
 
+## Print Templates
+
+See the [templates](templates) subdirectory for ready to use SVG templates.
+
 ## Copyright
 
 ```
