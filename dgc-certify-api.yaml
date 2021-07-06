@@ -399,7 +399,6 @@ components:
         - id
         - tg
         - fr
-        - is
         - df
         - du
       properties:
@@ -416,8 +415,6 @@ components:
           description: First positive test result date as ISO 8601.
           type: string
           format: date
-        is:
-          '$ref': 'dgc-schema.json#/$defs/issuer'
         df:
           description: Certificate valid from date as ISO 8601.
           type: string
