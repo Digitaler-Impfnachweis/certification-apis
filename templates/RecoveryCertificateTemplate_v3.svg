@@ -4,14 +4,14 @@
 	 height="297mm" viewBox="0 0 595.3 841.9" style="enable-background:new 0 0 595.3 841.9;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#EDA593;}
-	.st1{font-family:'Arial-BoldMT';}
+	.st1{font-family:'OpenSans-Bold','Open Sans';font-weight:700;}
 	.st2{font-size:92px;}
 	.st3{fill:#FFFFFF;}
 	.st4{fill:#2366A4;}
-	.st5{font-family:'OpenSans-Bold';}
+	.st5{font-family:'OpenSans-Bold', 'Open Sans';font-weight:700;}
 	.st6{font-size:11px;}
 	.st7{fill:none;}
-	.st8{font-family:'OpenSans-Regular';}
+	.st8{font-family:'OpenSans-Regular','Open Sans';}
 	.st9{font-size:8px;}
 	.st10{fill:#FFF200;}
 	.st11{fill:none;stroke:#20428D;stroke-width:0.75;}

@@ -5,15 +5,15 @@
 	 xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#EDA593;}
-	.st1{font-family:'Arial-BoldMT';}
+	.st1{font-family:'OpenSans-Bold','Open Sans';font-weight:700;}
 	.st2{font-size:92px;}
 	.st3{fill:#FFFFFF;}
 	.st4{fill:none;}
 	.st5{fill:#1C66A3;}
-	.st6{font-family:'OpenSans-Regular';}
+	.st6{font-family:'OpenSans-Regular','Open Sans';}
 	.st7{font-size:8px;}
 	.st8{fill:#2066A3;}
-	.st9{font-family:'OpenSans-Bold';}
+	.st9{font-family:'OpenSans-Bold','Open Sans'; font-weight:700;}
 	.st10{fill:none;stroke:#939598;stroke-width:0.5;}
 	.st11{fill:#FFF200;}
 	.st12{fill:none;stroke:#20428D;stroke-width:0.75;}
