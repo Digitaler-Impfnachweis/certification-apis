@@ -25,7 +25,7 @@ OIDC Authorization Endpoint: `https://<host>/auth/realms/<realm>/protocol/openid
 
 | Query-Param | Value | Description |
 | --- | --- | --- |
-| client_id  | `user-access-ti` or `user-access-ti-simulator` | `user-access-ti` requires a RU SMCB . `user-access-ti-kops-simulator` can be used in conjuction with the gematik KOPS. [Further Details](https://github.com/Digitaler-Impfnachweis/certification-apis/discussions/14) |
+| client_id  | `user-access-ti` or `user-access-ti-simulator` | `user-access-ti` requires a RU SMCB . `user-access-ti-simulator` can be used in conjuction with the gematik KOPS. [Further Details](https://github.com/Digitaler-Impfnachweis/certification-apis/discussions/14) |
 | redirect_uri | connector://authenticated | custom-uri scheme |
 | response_type  | code |  |
 | scope | openid | |
