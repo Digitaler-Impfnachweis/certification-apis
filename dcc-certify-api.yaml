@@ -61,6 +61,37 @@ paths:
         need an X.509 client certificate and must provide a list of authorized vaccination center `id`'s.
 
         **Applications:** vaccination center software, patient information systems, integrators
+      parameters:
+        - in: header
+          name: X-Transaction-Id
+          description: |
+            The transaction id that identifies this request. Needs to be
+            a SHA256 of the actual transaction id encoded as hex string.
+          schema:
+            type: string
+            format: hex
+            pattern: "^[A-Za-z0-9]{64}$"
+          example: 56e9926cd68bf5818e176196b324aeca05a2fe7ea10b486876d194898e9ccc22
+#          required: true
+        - in: header
+          name: X-UBIRCH-DCCType
+          description: |
+            The type of signature to be acquired. V - for vaccination certificates, T - for
+            test certificates, and R - for recovery certificates
+          schema:
+            type: string
+            pattern: "^[VTR]$"
+          examples:
+            vaccination:
+              value: V
+              summary: Request a vaccination certificate gsignature.
+            test:
+              value: T
+              summary: Request a test certificate signature.
+            recovery:
+              value: R
+              summary: Request a recovery certificate signature.
+          required: true
       requestBody:
         description: >-
           Digital Green Certificate request information. The value-sets are defined in the
@@ -188,7 +219,7 @@ paths:
             format: hex
             pattern: "^[A-Za-z0-9]{64}$"
           example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-#          required: true
+          required: true
         - in: header
           name: X-Transaction-Id
           description: |
@@ -199,7 +230,7 @@ paths:
             format: hex
             pattern: "^[A-Za-z0-9]{64}$"
           example: 56e9926cd68bf5818e176196b324aeca05a2fe7ea10b486876d194898e9ccc22
-#          required: true
+          required: true
         - in: header
           name: X-UBIRCH-DCCType
           description: |
@@ -218,7 +249,7 @@ paths:
             recovery:
               value: R
               summary: Request a recovery certificate signature.
-#          required: true
+          required: true
       requestBody:
         description: |
           Base64 encoded SHA256 message digest of the CBOR Web Token prior to the application
