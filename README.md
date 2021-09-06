@@ -31,6 +31,10 @@ In order to use the mentioned APIs different authentication options exist.
 - [Authentication with TI SMCB](SMCB-Authentication.md)
 - Authentication with client-certificate (mTLS)
 
+## Implementation
+
+Please refer to [Implementation](Implementation.md) for an extensive certificate schema description.      
+
 ## Additional Information
 
 For implementors the official documentation of the Digital Green Certificate
