@@ -84,7 +84,7 @@ paths:
           examples:
             vaccination:
               value: V
-              summary: Request a vaccination certificate gsignature.
+              summary: Request a vaccination certificate signature.
             test:
               value: T
               summary: Request a test certificate signature.
@@ -242,7 +242,7 @@ paths:
           examples:
             vaccination:
               value: V
-              summary: Request a vaccination certificate gsignature.
+              summary: Request a vaccination certificate signature.
             test:
               value: T
               summary: Request a test certificate signature.
