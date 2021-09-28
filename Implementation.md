@@ -3,14 +3,14 @@
 Please read the following instructions carefully in order to create commonly compatible DCCs using the `/api/v2/issue` API.  
 The following information adheres to the [Guidelines on Technical Specifications for EU Digital COVID Certificates JSON Schema Specification Schema version 1.3.0 2021-06-09](https://ec.europa.eu/health/sites/default/files/ehealth/docs/covid-certificate_json_specification_en.pdf), but also includes further information, e.g. for **booster vaccinations**. Please bear in mind, that specifications for the Digitales Impfquotenmonitoring by the RKI might be different from the specifications for the certificates.
 
-The APIs can be used to issue both vaccination and recovery certificates. Vaccination certificates document a single vaccination dose, like for example first dose, second dose or a booster dose. Recovery certificates document a recovery from COVID 19 detected by a positive PCR test.  
+The APIs can be used to issue both vaccination and recovery certificates. Vaccination certificates document a single vaccination dose, like for example first dose, second dose or a booster dose. Recovery certificates document a recovery from COVID-19 detected by a positive PCR test.  
 Any certificate should only contain a single record: a single vaccination or a single recovery statement.
 
 ## Vocabulary EN/DE
 
 *   vaccination certificate = Impfzertifikat
 *   recovery certificate = Genesenenzertifikat
-*   recovery vaccination (A vaccination, after a person has recovered from COVID19) = Genesenenimpfung (Impfung, nachdem eine Person eine COVID19 Erkrankung durchlaufen hat)
+*   recovery vaccination (A vaccination, after a person has recovered from COVID-19) = Genesenenimpfung (Impfung, nachdem eine Person eine COVID-19 Erkrankung durchlaufen hat)
 *   cross vaccination = Kreuzimpfung
 *   booster vaccination = Auffrischungsimpfung
 
@@ -58,7 +58,7 @@ Vaccination records are marked with `v`, for example:
 The fields within the vaccination certificate request must be as follows:
 
 *   `id`: Identifier of the administering location (i.e. vaccination center ID / DIM-ID, BSNR or similar identifier). It will be used in the construction of the DGCI (digital green certificate identifier). Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed. `^[0-9A-Z]+$`
-*   `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID 19, only `"840539006"` is to be used.
+*   `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID-19, only `"840539006"` is to be used.
 *   `vp`: The vaccine prophylaxis as defined by SNOMED CT. Can be
     *   `1119349007` for a SARS-CoV-2 mRNA vaccine
     *   `1119305005` for a SARS-CoV-2 antigen vaccine
@@ -100,7 +100,7 @@ Valid values for cross vaccines are limited to
 
 ### Values for `dn` and `sd` for recovery vaccinations
 
-Recovery vaccinations are second dose vaccinations, where the patient has recovered from COVID19 before.
+Recovery vaccinations are second dose vaccinations, where the patient has recovered from COVID-19 before.
 
 Valid values for recovery vaccines are limited to
 
@@ -147,7 +147,7 @@ Vaccination records are marked with `r`, for example:
 The fields within the recovery certificate request must be as follows:
 
 *   `id`: Identifier of the administering location (i.e. vaccination center ID / DIM-ID, BSNR or similar identifier). It will be used in the construction of the DGCI (digital green certificate identifier). Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed. `^[0-9A-Z]+$`
-*   `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID 19, only `"840539006"` is to be used.
+*   `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID-19, only `"840539006"` is to be used.
 *   `fr`: The date when a sample for the NAAT/PCR test producing a positive result was collected, in the format `YYYY-MM-DD`.
 *   `df`: The first date on which the certificate is considered to be valid. The first date valid begins on the 28th day after the date of the sample collection, so `df` must be `fr + 28 days`
 *   `du`: The last date on which the certificate is considered to be valid. A recovery certificate must not be issued for NAAT/PCR tests older than 180 days. The date for `du` must be
