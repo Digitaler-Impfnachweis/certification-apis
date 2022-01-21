@@ -272,9 +272,9 @@ paths:
         '400':
           description: Invalid Request
         '401':
-          description: Authentication Failure(Credential missing)
+          description: Authentication Failure (Credential missing)
         '403':
-          description: Forbidden(Invalid Credentials)
+          description: Forbidden (Invalid Credentials)
         '406':
           description: Incorrect CBOR Data
         '500':
