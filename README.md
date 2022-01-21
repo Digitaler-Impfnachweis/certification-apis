@@ -12,6 +12,10 @@ The interface specifications are aligned with the DGC schema specification publi
   patient management software to issue [DGC](https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/covid-19-digital-green-certificates)
   compliant certificates.
 
+- **Re-Issuing API** ([OpenAPI Specification](dcc-re-certify-api.yaml))
+
+  Endpoint for re-issuing to automate extension or re-coding of certificates.
+
 - **[DSC TrustList Update API](dsc-update/README.md)** ([OpenAPI Specification](dsc-update/dsc-update-api.yaml))
 
   Provides an endpoint for verifiers to get the latest list of trusted Document Signing Certificates (DSC).
