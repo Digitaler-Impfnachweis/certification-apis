@@ -1,0 +1,3 @@
+[submodule "valuesets"]
+	path = valuesets
+	url = https://github.com/ehn-dcc-development/ehn-dcc-valuesets
