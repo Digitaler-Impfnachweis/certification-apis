@@ -56,24 +56,48 @@ paths:
 
         *Applications:* mobile applications, wallet apps
       requestBody:
-        description: A valid Digital Green Certificate (DGC) signed in Germany (DE).
+        description: |
+          A list of valid Digital Green Certificate(s) (DGC) signed in Germany (DE) that are needed for re-issue.
         content:
-          application/cbor:
+          application/json:
             schema:
-              $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateBinary'
-          application/cbor+base45:
-            schema:
-              $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
+              type: object
+              properties:
+                action:
+                  description: The operation to execute on the input certificate(s).
+                  type: string
+                  required: true
+                  enum:
+                    - renew
+                    - combine
+                    - TBD
+                certificates:
+                  description: One or more certificates required for the operation.
+                  type: array
+                  required: true
+                  minItems: 1
+                  items:
+                    $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
       responses:
         '200':
           description: OK
           content:
-            application/cbor+base45:
+            application/json:
               schema:
-                $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
-            application/cbor:
-              schema:
-                $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateBinary'
+                type: object
+                properties:
+                  action:
+                    description: The operation that was executed on the input.
+                    type: string
+                    enum:
+                      - renew
+                      - combine
+                      - TBD
+                  certificates:
+                    description: The result of the operation, which may be one or more certificates.
+                    type: array
+                    items:
+                      $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
         '400':
           description: Invalid Request
         '401':
