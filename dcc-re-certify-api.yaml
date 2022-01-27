@@ -64,7 +64,9 @@ paths:
               type: object
               properties:
                 action:
-                  description: The operation to execute on the input certificate(s).
+                  description: |
+                    The operation to execute on the input certificate(s). All certificates in a single request
+                    must adhere to same-person rule. Each request operates on certificates of one person.
                   type: string
                   required: true
                   enum:
@@ -77,27 +79,20 @@ paths:
                   required: true
                   minItems: 1
                   items:
-                    $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
+                    '$ref': '#/components/schemas/CertificateReissueResponse'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  action:
-                    description: The operation that was executed on the input.
-                    type: string
-                    enum:
-                      - renew
-                      - combine
-                      - TBD
-                  certificates:
-                    description: The result of the operation, which may be one or more certificates.
-                    type: array
-                    items:
-                      $ref: 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
+                description: |
+                  The result of the operation, which may be one or more certificates. For each certificate the 
+                  executed operation is indicated.
+                type: array
+                items:
+                  type: object
+
         '400':
           description: Invalid Request
         '401':
@@ -119,3 +114,30 @@ paths:
 #        Authentication is based on a bearer token
 #      scheme: bearer
 #      bearerFormat: JWT
+
+components:
+  schemas:
+    CertificateReissueResponse:
+      description: The response of a re-issue operation.
+      type: array
+      items:
+        type: object
+        properties:
+          certificate:
+            '$ref': 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
+          relations:
+            description: Array of certificates related to this new certificate indicating the action.
+            type: array
+            items:
+              type: object
+              properties:
+                index:
+                  description: The index of the related certificate from the request.
+                  type: number
+                action:
+                  description: The operational relation to the new certificate.s
+                  type: string
+                  enum:
+                    - replace
+                    - extend
+                    - sTBD
