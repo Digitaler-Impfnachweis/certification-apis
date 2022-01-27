@@ -79,7 +79,7 @@ paths:
                   required: true
                   minItems: 1
                   items:
-                    '$ref': '#/components/schemas/CertificateReissueResponse'
+                    '$ref': 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
       responses:
         '200':
           description: OK
@@ -91,7 +91,7 @@ paths:
                   executed operation is indicated.
                 type: array
                 items:
-                  type: object
+                  '$ref': '#/components/schemas/CertificateReissueResponse'
 
         '400':
           description: Invalid Request
@@ -118,26 +118,26 @@ paths:
 components:
   schemas:
     CertificateReissueResponse:
-      description: The response of a re-issue operation.
-      type: array
-      items:
-        type: object
-        properties:
-          certificate:
-            '$ref': 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
-          relations:
-            description: Array of certificates related to this new certificate indicating the action.
-            type: array
-            items:
-              type: object
-              properties:
-                index:
-                  description: The index of the related certificate from the request.
-                  type: number
-                action:
-                  description: The operational relation to the new certificate.s
-                  type: string
-                  enum:
-                    - replace
-                    - extend
-                    - sTBD
+      type: object
+      properties:
+        certificate:
+          '$ref': 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
+        relations:
+          description: Array of certificates related to this new certificate indicating the action.
+          type: array
+          items:
+            '$ref': '#/components/schemas/CertificateReissueRelation'
+
+    CertificateReissueRelation:
+      type: object
+      properties:
+        index:
+          description: The index of the related certificate from the request.
+          type: number
+        action:
+          description: The operational relation to the new certificate.s
+          type: string
+          enum:
+            - replace
+            - extend
+            - TBD
