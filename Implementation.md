@@ -83,7 +83,7 @@ The fields within the vaccination certificate request must be as follows:
 Base vaccinations are regular vaccinations with the same vaccine.  
 Valid values for regular vaccine are limited to
 
-* for the vaccines by Biontech, Moderna, AstraZeneca:
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca:
     * `sd` must always be `2`
     * `dn` can either be `1` for the first dose or `2` for the second dose
 * for the vaccine by Johnson and Johnson:
@@ -106,7 +106,7 @@ Recovery vaccinations are second dose vaccinations, where the patient has recove
 
 Valid values for recovery vaccines are limited to
 
-* for the vaccines by Biontech, Moderna, AstraZeneca:
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca:
     * `sd` must always be `1`
     * `dn` must always be `1`
 * for the vaccines by Johnson and Johnson
