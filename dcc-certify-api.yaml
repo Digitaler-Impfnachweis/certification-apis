@@ -307,13 +307,13 @@ components:
               title: Family name
               description: The family or primary name(s) of the person addressed in the certificate
               type: string
-              maxLength: 50
+              maxLength: 80
               example: "Musterfrau-Dießner"
             gn:
               title: Given name
               description: The given name(s) of the person addressed in the certificate
               type: string
-              maxLength: 50
+              maxLength: 80
               example: "Erika Dörte"
         dob:
           title: Date of birth

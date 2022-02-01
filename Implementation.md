@@ -18,8 +18,8 @@ Any certificate should only contain a single record: a single vaccination or a s
 
 All certificates must be provided with information on the receiver of the certificate:
 
-* `nam/fn`: Surname(s), such as family name(s), of the holder. Exactly 1 (one) non-empty field MUST be provided, with all surnames included in it. In case of multiple surnames, these MUST be separated by a space. Combination names including hyphens or similar characters must however stay the same. ≤ 50 characters.
-* `nam/gn`: Forename(s), such as given name(s), of the holder. If the holder has no forenames, the field MUST be skipped. In all other cases, exactly 1 (one) non-empty field MUST be provided, with all forenames included in it. In case of multiple forenames, these MUST be separated by a space. ≤ 50 characters.
+* `nam/fn`: Surname(s), such as family name(s), of the holder. Exactly 1 (one) non-empty field MUST be provided, with all surnames included in it. In case of multiple surnames, these MUST be separated by a space. Combination names including hyphens or similar characters must however stay the same. ≤ 80 characters.
+* `nam/gn`: Forename(s), such as given name(s), of the holder. If the holder has no forenames, the field MUST be skipped. In all other cases, exactly 1 (one) non-empty field MUST be provided, with all forenames included in it. In case of multiple forenames, these MUST be separated by a space. ≤ 80 characters.
 * `dob`: Date of birth of the DCC holder. Complete or partial date without time restricted to the range from 1900-01-01 to 2099-12-31\. Exactly 1 (one) non-empty field MUST be provided if the complete or partial date of birth is known. If the date of birth is not known even partially, the field MUST be set to an empty string "". This should match the information as provided on travel documents. One of the following ISO 8601 formats MUST be used if information on date of birth is available. Other options are not supported. `YYYY-MM-DD`, `YYYY-MM`, `YYYY`  
   Example:
 
