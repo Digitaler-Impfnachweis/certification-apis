@@ -12,7 +12,7 @@ Any certificate should only contain a single record: a single vaccination or a s
 * recovery certificate = Genesenenzertifikat
 * recovery vaccination (A vaccination, after a person has recovered from COVID-19) = Genesenenimpfung (Impfung, nachdem eine Person eine COVID-19 Erkrankung durchlaufen hat)
 * cross vaccination = Kreuzimpfung
-* booster vaccination = Auffrischungsimpfung
+* booster vaccination = Auffrischimpfung
 
 ## Information for all types of certificates
 
