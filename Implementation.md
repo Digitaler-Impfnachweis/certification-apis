@@ -81,7 +81,8 @@ The fields within the vaccination certificate request must be as follows:
 ### Values for `dn` and `sd` for base vaccinations with the same vaccine
 
 Base vaccinations are regular vaccinations with the same vaccine.  
-Valid values for regular vaccine are limited to
+
+Valid values for regular vaccinations are limited to
 
 * for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca:
     * `sd` must always be `2`
@@ -94,7 +95,7 @@ Valid values for regular vaccine are limited to
 
 Cross vaccinations are second dose vaccinations, where the first dose has been a different vaccine than the second dose.
 
-Valid values for cross vaccines are limited to
+Valid values for cross vaccinations are limited to
 
 * for the vaccines by Biontech, Moderna, AstraZeneca:
     * `sd` must always be `2`
@@ -104,7 +105,7 @@ Valid values for cross vaccines are limited to
 
 Recovery vaccinations are second dose vaccinations, where the patient has recovered from COVID-19 before.
 
-Valid values for recovery vaccines are limited to
+Valid values for recovery vaccinations are limited to
 
 * for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca:
     * `sd` must always be `1`
@@ -115,7 +116,8 @@ Valid values for recovery vaccines are limited to
 
 ### Values for `dn` and `sd` for booster vaccinations
 
-Booster vaccinations are vaccinations after the patient has received her full vaccination series by base or cross vaccinations. Booster vaccinations can be with the same vaccine or with different vaccines as before.
+Booster vaccinations are vaccinations after the patient has received her full vaccination series by base or cross vaccinations. 
+Booster vaccinations can be with the same vaccine or with different vaccines as before.
 
 Valid values for booster vaccines are limited to
 
