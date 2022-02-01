@@ -91,14 +91,24 @@ Valid values for regular vaccinations are limited to
     * `sd` must always be `1`
     * `dn` must always be `1`
 
+Note that in Germany, a single Johnson and Johnson vaccination is no longer considered as sufficient for a full base immunization,
+see [here](https://www.zusammengegencorona.de/informieren/alltag-und-reisen/aktuelle-regelungen/#id-2420cc5c-901c-511d-838c-ab45352bf95b). 
+Thus, only a second vaccination following the first Johnson and Johnson vaccination is considered as a full base vaccination. 
+Please refer to the following section on how to encode these subsequent vaccinations. 
+
 ### Values for `dn` and `sd` for base vaccinations with the different vaccines (cross vaccinations)
 
 Cross vaccinations are second dose vaccinations, where the first dose has been a different vaccine than the second dose.
 
 Valid values for cross vaccinations are limited to
 
-* for the vaccines by Biontech, Moderna, AstraZeneca:
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca following a first-dose vaccination with one of the vaccines
+  by BioNTech/Pfizer, Moderna, AstraZeneca:
     * `sd` must always be `2`
+    * `dn` must always be `2`
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca following a first-dose vaccination with the vaccine by
+  Johnson and Johnson
+    * `sd` must always be `1`
     * `dn` must always be `2`
 
 ### Values for `dn` and `sd` for recovery vaccinations
@@ -121,13 +131,31 @@ Booster vaccinations can be with the same vaccine or with different vaccines as 
 
 Valid values for booster vaccines are limited to
 
-* After a full vaccinations series has been received
-* `sd` must always be equal to `dn`, where the value indicates the number of the total vaccinations received.
-
+* for booster vaccinations following a 2/2 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca:
+    * `sd` must always equal to `dn` and equal to the total number of vaccinations received
+* for booster vaccinations following a 2/1 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca:
+    * `sd` must always be `1`
+    * `dn` must equal to the total number of vaccinations received
+* for a booster vaccination following a 1/1 recovery vaccination
+    * `sd` must always be `1`
+    * `dn` must equal to the total number of vaccinations received
+    
 This implies, that
 
-* for a full vaccination series by the Biontech, Moderna, AstraZeneca vaccine (or combinations) the values will be `sd=3` and `dn=3` for the first booster vaccination, `sd=4` and `dn=4` for the second booster vaccination, etc.
-* for a full vaccination series by the Johnson and Johnson vaccine the values will be `sd=2`and `dn=2` for the first booster vaccination, `sd=3` and `dn=3` for the second booster vaccination, etc.
+* for a person with a full base vaccination series by the BioNTech/Pfizer, Moderna, AstraZeneca vaccines (or
+  combinations of which)
+    * the first booster vaccination will be issued as `sd=3` and `dn=3`
+    * the second booster vaccination will be issued as `sd=4` and `dn=4`
+    * etc.
+* for a person with a full base vaccination series by the vaccine by Johnson and Johnson following a BioNTech/Pfizer,
+  Moderna, AstraZeneca vaccine
+    * the first booster vaccination will be issued as `sd=1` and `dn=3`
+    * the second booster vaccination will be issued as `sd=1` and `dn=4`
+    * etc.
+* for a person with a recovery vaccination by any vaccine
+    * the first booster vaccination will be issued as `sd=1` and `dn=2`
+    * the second booster vaccination will be issued as `sd=1` and `dn=3`
+    * etc.
 
 ## Recovery Certificates
 
