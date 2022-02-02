@@ -61,22 +61,27 @@ The fields within the vaccination certificate request must be as follows:
 
 * `id`: Identifier of the administering location (i.e. vaccination center ID / DIM-ID, BSNR or similar identifier). It will be used in the construction of the DGCI (digital green certificate identifier). Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed. `^[0-9A-Z]+$`
 * `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID-19, only `"840539006"` is to be used.
-* `vp`: The vaccine prophylaxis as defined by SNOMED CT. Can be
-    * `1119349007` for a SARS-CoV-2 mRNA vaccine
-    * `1119305005` for a SARS-CoV-2 antigen vaccine
-* `mp`: The medicinal product used for this specific dose of vaccination. Can be
-    * `EU/1/20/1528` for Comirnaty by BioNTech/Pfizer
-    * `EU/1/20/1507`for Spikevax by Moderna
-    * `EU/1/21/1529` for Vaxzevria by AstraZeneca
-    * `EU/1/20/1525` for COVID-19 Vaccine Janssen by Janssen-Cilag/Johnson and Johnson
-* `ma`: Marketing authorisation holder or manufacturer, if no marketing authorization holder is present.
-    * `ORG-100030215` for Biontech Manufacturing GmbH
-    * `ORG-100031184` for Moderna Biotech Spain S.L.
-    * `ORG-100001699`for AstraZeneca AB
-    * `ORG-100001417` for Janssen-Cilag International
-* `dn`: Sequence number (positive integer) of the dose given during this vaccination event, please see the information below.
-* `sd`: Total number of doses (positive integer) in a complete vaccination series according to the used vaccination protocol, please see the information below.
-* `dt`: The date when the described dose was received, in the format `YYYY-MM-DD`.
+* for the different vaccines, the following values for `vp` (vaccine prophylaxis), `mp` (medicinal product) and `ma` (marketing authorisation holder or manfacturer, if no marketing authprization holder is present) shall be used:
+
+  **Currently(\*):**
+
+  |Vaccine Name|`vp`|`mp`|`ma`|
+  |------------|----|----|----|
+  |Comirnaty (BionTech/Pfizer)|`1119349007` or `J07BX03`|`EU/1/20/1528`|`ORG-100030215`|
+  |Spikevax (Moderna)|`1119349007` or `J07BX03`|`EU/1/20/1507`|`ORG-100031184`|
+  |Vaxzevria (AstraZeneca)|`1119305005`|`EU/1/21/1529`|`ORG-100001699`|
+  |COVID-19 Vaccine Janssen (Johnson and Johnson)|`1119305005`|`EU/1/20/1525`|`ORG-100001417`|
+  
+  **In Future(\*):**
+
+  |Vaccine Name|`vp`|`mp`|`ma`|
+  |------------|----|----|----|
+  |Comirnaty (BionTech/Pfizer)|`1119349007` or `J07BX03`|`EU/1/20/1528`|`ORG-100030215`|
+  |Spikevax (Moderna)|`1119349007` or `J07BX03`|`EU/1/20/1507`|`ORG-100031184`|
+  |Vaxzevria (AstraZeneca)|`J07BX03`|`EU/1/21/1529`|`ORG-100001699`|
+  |COVID-19 Vaccine Janssen (Johnson and Johnson)|`J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
+  |Nuvaxovid (Novavax)|`J07BX03`|`EU/1/21/1618`|`ORG-100032020`|
+  (*) the exact release date will be communicated separately
 
 ### Values for `dn` and `sd` for base vaccinations with the same vaccine
 
@@ -84,7 +89,7 @@ Base vaccinations are regular vaccinations with the same vaccine.
 
 Valid values for regular vaccinations are limited to
 
-* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca:
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
     * `sd` must always be `2`
     * `dn` can either be `1` for the first dose or `2` for the second dose
 * for the vaccine by Johnson and Johnson:
@@ -102,11 +107,11 @@ Cross vaccinations are second dose vaccinations, where the first dose has been a
 
 Valid values for cross vaccinations are limited to
 
-* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca following a first-dose vaccination with one of the vaccines
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax following a first-dose vaccination with one of the vaccines
   by BioNTech/Pfizer, Moderna, AstraZeneca:
     * `sd` must always be `2`
     * `dn` must always be `2`
-* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca following a first-dose vaccination with the vaccine by
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax following a first-dose vaccination with the vaccine by
   Johnson and Johnson
     * `sd` must always be `1`
     * `dn` must always be `2`
@@ -117,7 +122,7 @@ Recovery vaccinations are second dose vaccinations, where the patient has recove
 
 Valid values for recovery vaccinations are limited to
 
-* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca:
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
     * `sd` must always be `1`
     * `dn` must always be `1`
 * for the vaccines by Johnson and Johnson
@@ -131,9 +136,9 @@ Booster vaccinations can be with the same vaccine or with different vaccines as 
 
 Valid values for booster vaccines are limited to
 
-* for booster vaccinations following a 2/2 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca:
+* for booster vaccinations following a 2/2 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
     * `sd` must always equal to `dn` and equal to the total number of vaccinations received
-* for booster vaccinations following a 2/1 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca:
+* for booster vaccinations following a 2/1 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
     * `sd` must always be `1`
     * `dn` must equal to the total number of vaccinations received
 * for a booster vaccination following a 1/1 recovery vaccination
@@ -142,13 +147,13 @@ Valid values for booster vaccines are limited to
     
 This implies, that
 
-* for a person with a full base vaccination series by the BioNTech/Pfizer, Moderna, AstraZeneca vaccines (or
+* for a person with a full base vaccination series by the BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax vaccines (or
   combinations of which)
     * the first booster vaccination will be issued as `sd=3` and `dn=3`
     * the second booster vaccination will be issued as `sd=4` and `dn=4`
     * etc.
 * for a person with a full base vaccination series by the vaccine by Johnson and Johnson following a BioNTech/Pfizer,
-  Moderna, AstraZeneca vaccine
+  Moderna, AstraZeneca and in future Novavax vaccine
     * the first booster vaccination will be issued as `sd=1` and `dn=3`
     * the second booster vaccination will be issued as `sd=1` and `dn=4`
     * etc.
