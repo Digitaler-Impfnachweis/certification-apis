@@ -8,27 +8,26 @@ Any certificate should only contain a single record: a single vaccination or a s
 
 ## Vocabulary EN/DE
 
-*   vaccination certificate = Impfzertifikat
-*   recovery certificate = Genesenenzertifikat
-*   recovery vaccination (A vaccination, after a person has recovered from COVID-19) = Genesenenimpfung (Impfung, nachdem eine Person eine COVID-19 Erkrankung durchlaufen hat)
-*   cross vaccination = Kreuzimpfung
-*   booster vaccination = Auffrischungsimpfung
-
+* vaccination certificate = Impfzertifikat
+* recovery certificate = Genesenenzertifikat
+* recovery vaccination (A vaccination, after a person has recovered from COVID-19) = Genesenenimpfung (Impfung, nachdem eine Person eine COVID-19 Erkrankung durchlaufen hat)
+* cross vaccination = Kreuzimpfung
+* booster vaccination = Auffrischimpfung
 
 ## Information for all types of certificates
 
 All certificates must be provided with information on the receiver of the certificate:
 
-*   `nam/fn`: Surname(s), such as family name(s), of the holder. Exactly 1 (one) non-empty field MUST be provided, with all surnames included in it. In case of multiple surnames, these MUST be separated by a space. Combination names including hyphens or similar characters must however stay the same. ≤ 50 characters.
-*   `nam/gn`: Forename(s), such as given name(s), of the holder. If the holder has no forenames, the field MUST be skipped. In all other cases, exactly 1 (one) non-empty field MUST be provided, with all forenames included in it. In case of multiple forenames, these MUST be separated by a space. ≤ 50 characters.
-*   `dob`: Date of birth of the DCC holder. Complete or partial date without time restricted to the range from 1900-01-01 to 2099-12-31\. Exactly 1 (one) non-empty field MUST be provided if the complete or partial date of birth is known. If the date of birth is not known even partially, the field MUST be set to an empty string "". This should match the information as provided on travel documents. One of the following ISO 8601 formats MUST be used if information on date of birth is available. Other options are not supported. `YYYY-MM-DD`, `YYYY-MM`, `YYYY`  
-    Example:
+* `nam/fn`: Surname(s), such as family name(s), of the holder. Exactly 1 (one) non-empty field MUST be provided, with all surnames included in it. In case of multiple surnames, these MUST be separated by a space. Combination names including hyphens or similar characters must however stay the same. ≤ 80 characters.
+* `nam/gn`: Forename(s), such as given name(s), of the holder. If the holder has no forenames, the field MUST be skipped. In all other cases, exactly 1 (one) non-empty field MUST be provided, with all forenames included in it. In case of multiple forenames, these MUST be separated by a space. ≤ 80 characters.
+* `dob`: Date of birth of the DCC holder. Complete or partial date without time restricted to the range from 1900-01-01 to 2099-12-31\. Exactly 1 (one) non-empty field MUST be provided if the complete or partial date of birth is known. If the date of birth is not known even partially, the field MUST be set to an empty string "". This should match the information as provided on travel documents. One of the following ISO 8601 formats MUST be used if information on date of birth is available. Other options are not supported. `YYYY-MM-DD`, `YYYY-MM`, `YYYY`  
+  Example:
 
 ```json
 "nam": {
-	"fn": "Musterfrau",
-	"gn": "Max"
-}, 
+"fn": "Musterfrau",
+"gn": "Max"
+},
 "dob": "1991-02-03"
 ```
 
@@ -38,91 +37,131 @@ Vaccination records are marked with `v`, for example:
 
 ```json
 {
-	"nam": {
-		"fn": "Musterfrau",
-		"gn": "Max"
-	}, 
-	"dob": "1991-02-03",
-	"v": [{
-			"id": "IZ28215B",
-            "tg": "840539006",
-            "vp": "1119305005",
-            "mp": "EU/1/20/1528",
-            "ma": "ORG-100001699",
-            "dn": 1,
-            "sd": 2,
-            "dt": "2021-04-14"
-	}]
+  "nam": {
+    "fn": "Musterfrau",
+    "gn": "Max"
+  },
+  "dob": "1991-02-03",
+  "v": [
+    {
+      "id": "IZ28215B",
+      "tg": "840539006",
+      "vp": "1119305005",
+      "mp": "EU/1/20/1528",
+      "ma": "ORG-100001699",
+      "dn": 1,
+      "sd": 2,
+      "dt": "2021-04-14"
+    }
+  ]
 }
 ```
+
 The fields within the vaccination certificate request must be as follows:
 
-*   `id`: Identifier of the administering location (i.e. vaccination center ID / DIM-ID, BSNR or similar identifier). It will be used in the construction of the DGCI (digital green certificate identifier). Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed. `^[0-9A-Z]+$`
-*   `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID-19, only `"840539006"` is to be used.
-*   `vp`: The vaccine prophylaxis as defined by SNOMED CT. Can be
-    *   `1119349007` for a SARS-CoV-2 mRNA vaccine
-    *   `1119305005` for a SARS-CoV-2 antigen vaccine
-*   `mp`: The medicinal product used for this specific dose of vaccination. Can be
-    *   `EU/1/20/1528` for Comirnaty by BioNTech/Pfizer
-    *   `EU/1/20/1507`for Spikevax by Moderna
-    *   `EU/1/21/1529` for Vaxzevria by AstraZeneca
-    *   `EU/1/20/1525` for COVID-19 Vaccine Janssen by Janssen-Cilag/Johnson and Johnson
-*   `ma`: Marketing authorisation holder or manufacturer, if no marketing authorization holder is present.
-    *   `ORG-100030215` for Biontech Manufacturing GmbH
-    *   `ORG-100031184` for Moderna Biotech Spain S.L.
-    *   `ORG-100001699`for AstraZeneca AB
-    *   `ORG-100001417` for Janssen-Cilag International
-*   `dn`: Sequence number (positive integer) of the dose given during this vaccination event, please see the information below.
-*   `sd`: Total number of doses (positive integer) in a complete vaccination series according to the used vaccination protocol, please see the information below.
-*   `dt`: The date when the described dose was received, in the format `YYYY-MM-DD`.
+* `id`: Identifier of the administering location (i.e. vaccination center ID / DIM-ID, BSNR or similar identifier). It will be used in the construction of the DGCI (digital green certificate identifier). Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed. `^[0-9A-Z]+$`
+* `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID-19, only `"840539006"` is to be used.
+* for the different vaccines, the following values for `vp` (vaccine prophylaxis), `mp` (medicinal product) and `ma` (marketing authorisation holder or manfacturer, if no marketing authprization holder is present) shall be used:
+
+  **Currently(\*):**
+
+  |Vaccine Name|`vp`|`mp`|`ma`|
+  |------------|----|----|----|
+  |Comirnaty (BionTech/Pfizer)|`1119349007` or `J07BX03`|`EU/1/20/1528`|`ORG-100030215`|
+  |Spikevax (Moderna)|`1119349007` or `J07BX03`|`EU/1/20/1507`|`ORG-100031184`|
+  |Vaxzevria (AstraZeneca)|`1119305005`|`EU/1/21/1529`|`ORG-100001699`|
+  |COVID-19 Vaccine Janssen (Johnson and Johnson)|`1119305005`|`EU/1/20/1525`|`ORG-100001417`|
+  
+  **In Future(\*):**
+
+  |Vaccine Name|`vp`|`mp`|`ma`|
+  |------------|----|----|----|
+  |Comirnaty (BionTech/Pfizer)|`1119349007` or `J07BX03`|`EU/1/20/1528`|`ORG-100030215`|
+  |Spikevax (Moderna)|`1119349007` or `J07BX03`|`EU/1/20/1507`|`ORG-100031184`|
+  |Vaxzevria (AstraZeneca)|`J07BX03`|`EU/1/21/1529`|`ORG-100001699`|
+  |COVID-19 Vaccine Janssen (Johnson and Johnson)|`J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
+  |Nuvaxovid (Novavax)|`J07BX03`|`EU/1/21/1618`|`ORG-100032020`|
+
+(*) the exact release date will be communicated separately
 
 ### Values for `dn` and `sd` for base vaccinations with the same vaccine
 
 Base vaccinations are regular vaccinations with the same vaccine.  
-Valid values for regular vaccine are limited to
 
-*   for the vaccines by Biontech, Moderna, AstraZeneca:
-    *   `sd` must always be `2`
-    *   `dn` can either be `1` for the first dose or `2` for the second dose
-*   for the vaccine by Johnson and Johnson:
-    *   `sd` must always be `1`
-    *   `dn` must always be `1`
+Valid values for regular vaccinations are limited to
+
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
+    * `sd` must always be `2`
+    * `dn` can either be `1` for the first dose or `2` for the second dose
+* for the vaccine by Johnson and Johnson:
+    * `sd` must always be `1`
+    * `dn` must always be `1`
+
+Note that in Germany, a single Johnson and Johnson vaccination is no longer considered as sufficient for a full base immunization,
+see [here](https://www.zusammengegencorona.de/informieren/alltag-und-reisen/aktuelle-regelungen/#id-2420cc5c-901c-511d-838c-ab45352bf95b). 
+Thus, only a second vaccination following the first Johnson and Johnson vaccination is considered as a full base vaccination. 
+Please refer to the following section on how to encode these subsequent vaccinations. 
 
 ### Values for `dn` and `sd` for base vaccinations with the different vaccines (cross vaccinations)
 
 Cross vaccinations are second dose vaccinations, where the first dose has been a different vaccine than the second dose.
 
-Valid values for cross vaccines are limited to
+Valid values for cross vaccinations are limited to
 
-*   for the vaccines by Biontech, Moderna, AstraZeneca:
-    *   `sd` must always be `2`
-    *   `dn` must always be `2`
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax following a first-dose vaccination with one of the vaccines
+  by BioNTech/Pfizer, Moderna, AstraZeneca:
+    * `sd` must always be `2`
+    * `dn` must always be `2`
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax following a first-dose vaccination with the vaccine by
+  Johnson and Johnson
+    * `sd` must always be `1`
+    * `dn` must always be `2`
 
 ### Values for `dn` and `sd` for recovery vaccinations
 
 Recovery vaccinations are second dose vaccinations, where the patient has recovered from COVID-19 before.
 
-Valid values for recovery vaccines are limited to
+Valid values for recovery vaccinations are limited to
 
-*   for the vaccines by Biontech, Moderna, AstraZeneca:
-    *   `sd` must always be `1`
-    *   `dn` must always be `1`
-*   for the vaccines by Johnson and Johnson
-    *   `sd` must always be `1`
-    *   `dn` must always be `1`
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
+    * `sd` must always be `1`
+    * `dn` must always be `1`
+* for the vaccines by Johnson and Johnson
+    * `sd` must always be `1`
+    * `dn` must always be `1`
 
 ### Values for `dn` and `sd` for booster vaccinations
 
-Booster vaccinations are vaccinations after the patient has received her full vaccination series by base or cross vaccinations. Booster vaccinations can be with the same vaccine or with different vaccines as before.
+Booster vaccinations are vaccinations after the patient has received her full vaccination series by base or cross vaccinations. 
+Booster vaccinations can be with the same vaccine or with different vaccines as before.
 
-Valid values for booster vaccines are limited to  
-*   After a full vaccinations series has been received  
-*   `sd` must always be equal to `dn`, where the value indicates the number of the total vaccinations received.
+Valid values for booster vaccines are limited to
 
+* for booster vaccinations following a 2/2 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
+    * `sd` must always equal to `dn` and equal to the total number of vaccinations received
+* for booster vaccinations following a 2/1 base vaccination with vaccines from BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax:
+    * `sd` must always be `1`
+    * `dn` must equal to the total number of vaccinations received
+* for a booster vaccination following a 1/1 recovery vaccination
+    * `sd` must always be `1`
+    * `dn` must equal to the total number of vaccinations received
+    
 This implies, that
 
-*   for a full vaccination series by the Biontech, Moderna, AstraZeneca vaccine (or combinations) the values will be `sd=3` and `dn=3` for the first booster vaccination, `sd=4` and `dn=4` for the second booster vaccination, etc.
-*   for a full vaccination series by the Johnson and Johnson vaccine the values will be `sd=2`and `dn=2` for the first booster vaccination, `sd=3` and `dn=3` for the second booster vaccination, etc.
+* for a person with a full base vaccination series by the BioNTech/Pfizer, Moderna, AstraZeneca and in future Novavax vaccines (or
+  combinations of which)
+    * the first booster vaccination will be issued as `sd=3` and `dn=3`
+    * the second booster vaccination will be issued as `sd=4` and `dn=4`
+    * etc.
+* for a person with a full base vaccination series by the vaccine by Johnson and Johnson following a BioNTech/Pfizer,
+  Moderna, AstraZeneca and in future Novavax vaccine
+    * the first booster vaccination will be issued as `sd=1` and `dn=3`
+    * the second booster vaccination will be issued as `sd=1` and `dn=4`
+    * etc.
+* for a person with a recovery vaccination by any vaccine
+    * the first booster vaccination will be issued as `sd=1` and `dn=2`
+    * the second booster vaccination will be issued as `sd=1` and `dn=3`
+    * etc.
 
 ## Recovery Certificates
 
@@ -144,18 +183,19 @@ Vaccination records are marked with `r`, for example:
         }]
 }
 ```
+
 The fields within the recovery certificate request must be as follows:
 
-*   `id`: Identifier of the administering location (i.e. vaccination center ID / DIM-ID, BSNR or similar identifier). It will be used in the construction of the DGCI (digital green certificate identifier). Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed. `^[0-9A-Z]+$`
-*   `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID-19, only `"840539006"` is to be used.
-*   `fr`: The date when a sample for the NAAT/PCR test producing a positive result was collected, in the format `YYYY-MM-DD`.
-*   `df`: The first date on which the certificate is considered to be valid. The first date valid begins on the 28th day after the date of the sample collection, so `df` must be `fr + 28 days`
-*   `du`: The last date on which the certificate is considered to be valid. A recovery certificate must not be issued for NAAT/PCR tests older than 180 days. The date for `du` must be
-    *   after or equal `fr`
-    *   before or equal `fr + 180 days`.
+* `id`: Identifier of the administering location (i.e. vaccination center ID / DIM-ID, BSNR or similar identifier). It will be used in the construction of the DGCI (digital green certificate identifier). Due to the specification of the DGCI only the use of uppercase letters and numbers 0-9 are allowed. `^[0-9A-Z]+$`
+* `tg`: The disease agent targeted as defined by SNOMED CT. Currently for COVID-19, only `"840539006"` is to be used.
+* `fr`: The date when a sample for the NAAT/PCR test producing a positive result was collected, in the format `YYYY-MM-DD`.
+* `df`: The first date on which the certificate is considered to be valid. The first date valid begins on the 28th day after the date of the sample collection, so `df` must be `fr + 28 days`
+* `du`: The last date on which the certificate is considered to be valid. A recovery certificate must not be issued for NAAT/PCR tests older than 180 days. The date for `du` must be
+    * after or equal `fr`
+    * before or equal `fr + 180 days`.
 
 ## Further resources
 
-*   [https://ec.europa.eu/health/ehealth/covid-19_en](https://ec.europa.eu/health/ehealth/covid-19_en)
-*   [https://ec.europa.eu/health/sites/default/files/ehealth/docs/covid-certificate_json_specification_en.pdf](https://ec.europa.eu/health/sites/default/files/ehealth/docs/covid-certificate_json_specification_en.pdf)
-*   [https://github.com/ehn-dcc-development/ehn-dcc-valuesets](https://github.com/ehn-dcc-development/ehn-dcc-valuesets)
+* [https://ec.europa.eu/health/ehealth/covid-19_en](https://ec.europa.eu/health/ehealth/covid-19_en)
+* [https://ec.europa.eu/health/sites/default/files/ehealth/docs/covid-certificate_json_specification_en.pdf](https://ec.europa.eu/health/sites/default/files/ehealth/docs/covid-certificate_json_specification_en.pdf)
+* [https://github.com/ehn-dcc-development/ehn-dcc-valuesets](https://github.com/ehn-dcc-development/ehn-dcc-valuesets)
