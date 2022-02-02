@@ -81,7 +81,8 @@ The fields within the vaccination certificate request must be as follows:
   |Vaxzevria (AstraZeneca)|`J07BX03`|`EU/1/21/1529`|`ORG-100001699`|
   |COVID-19 Vaccine Janssen (Johnson and Johnson)|`J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
   |Nuvaxovid (Novavax)|`J07BX03`|`EU/1/21/1618`|`ORG-100032020`|
-  (*) the exact release date will be communicated separately
+
+(*) the exact release date will be communicated separately
 
 ### Values for `dn` and `sd` for base vaccinations with the same vaccine
 
