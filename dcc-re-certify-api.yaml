@@ -1,0 +1,143 @@
+openapi: 3.0.1
+servers:
+  - url: https://api.recertify.demo.ubirch.com/
+    description: STAGING api server (re-issue only)
+  - url: https://api.recertify.ubirch.com/
+    description: PRODUCTION api server (re-issue only)
+info:
+  title: Re-issue Service API
+  description: |
+    The re-issue service API generates signed
+    [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema)
+    conforming certificates with the short validity and based on current regulations. It is mainly used by Apps
+    to re-issue validation certificates.
+
+    ```
+    Copyright (C) 2021 IBM Deutschland GmbH
+    Copyright (C) 2021 ubirch GmbH
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+    ```
+
+  version: 2.0.0
+  license:
+    name: 'Apache License, Version 2.0'
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+  contact:
+    name: UBIRCH GmbH
+    url: https://ubirch.com
+    email: mailto:support@ubirch.com
+paths:
+  # ===========================================================
+  # Available API endpoints
+  # ===========================================================
+  /api/certify/v2/reissue:
+    post:
+      tags:
+        - Re-issuing
+      summary: Re-issue a new certificate based on an existing valid certificate.
+      description: |
+        # Description
+
+        Re-issue a new certificate based on an existing valid certificate. This operation verifies the authenticity and
+        the integrity of the certificate, checks some formal rules of the content of the certificate and re-issues
+        a new certificate with a different validity and/or re-encoded specifics (i.e. series encoding) than the original
+        certificate.
+
+        *Applications:* mobile applications, wallet apps
+      requestBody:
+        description: |
+          A list of valid Digital Green Certificate(s) (DGC) signed in Germany (DE) that are needed for re-issue.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  description: |
+                    The operation to execute on the input certificate(s). All certificates in a single request
+                    must adhere to same-person rule. Each request operates on certificates of one person.
+                  type: string
+                  required: true
+                  enum:
+                    - renew
+                    - combine
+                    - TBD
+                certificates:
+                  description: One or more certificates required for the operation.
+                  type: array
+                  required: true
+                  minItems: 1
+                  items:
+                    '$ref': 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: |
+                  The result of the operation, which may be one or more certificates. For each certificate the 
+                  executed operation is indicated.
+                type: array
+                items:
+                  '$ref': '#/components/schemas/CertificateReissueResponse'
+
+        '400':
+          description: Invalid Request
+        '401':
+          description: Authentication Failure (Invalid Signature)
+        '403':
+          description: Forbidden (Valid Signature, Forbidden DCC)
+        '406':
+          description: Incorrect CBOR data or invalid content
+        '500':
+          description: Internal Server Error
+#      security:
+#        - AppBearerToken: [ ]
+
+#components:
+#  securitySchemes:
+#    AppBearerToken:
+#      type: http
+#      description: >-
+#        Authentication is based on a bearer token
+#      scheme: bearer
+#      bearerFormat: JWT
+
+components:
+  schemas:
+    CertificateReissueResponse:
+      type: object
+      properties:
+        certificate:
+          '$ref': 'dcc-certify-api.yaml#/components/schemas/CertificateEncoded'
+        relations:
+          description: Array of certificates related to this new certificate indicating the action.
+          type: array
+          items:
+            '$ref': '#/components/schemas/CertificateReissueRelation'
+
+    CertificateReissueRelation:
+      type: object
+      properties:
+        index:
+          description: The index of the related certificate from the request.
+          type: number
+        action:
+          description: The operational relation to the new certificate.s
+          type: string
+          enum:
+            - replace
+            - extend
+            - TBD
