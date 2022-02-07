@@ -12,7 +12,7 @@ The interface specifications are aligned with the DGC schema specification publi
   patient management software to issue [DGC](https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/covid-19-digital-green-certificates)
   compliant certificates.
 
-- **Re-Issuing API** ([OpenAPI Specification](dcc-re-certify-api.yaml))
+- **Re-Issuing API** ([OpenAPI Specification](dcc-reissue-api.yaml))
 
   Endpoint for re-issuing to automate extension or re-coding of certificates.
 

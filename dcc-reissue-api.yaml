@@ -1,9 +1,9 @@
 openapi: 3.0.1
 servers:
-  - url: https://api.recertify.demo.ubirch.com/
-    description: STAGING api server (re-issue only)
-  - url: https://api.recertify.ubirch.com/
-    description: PRODUCTION api server (re-issue only)
+  - url: https://api.reissue.demo.ubirch.com/
+    description: STAGING re-issue api server
+  - url: https://api.reissue.ubirch.com/
+    description: PRODUCTION re-issue api server
 info:
   title: Re-issue Service API
   description: |
