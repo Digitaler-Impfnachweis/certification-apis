@@ -72,7 +72,6 @@ paths:
                   enum:
                     - renew
                     - combine
-                    - TBD
                 certificates:
                   description: One or more certificates required for the operation.
                   type: array
@@ -92,15 +91,50 @@ paths:
                 type: array
                 items:
                   '$ref': '#/components/schemas/CertificateReissueResponse'
-
         '400':
           description: Invalid Request
+          content:
+            text/plain:
+              schema:
+                type: string
+                enum:
+                  - body too large
+                  - invalid request
         '401':
           description: Authentication Failure (Invalid Signature)
+          content:
+            text/plain:
+              schema:
+                type: string
+                enum:
+                  - a certificate could not be verified
+                  - a certificate failed signature verification
         '403':
           description: Forbidden (Valid Signature, Forbidden DCC)
+          content:
+            text/plain:
+              schema:
+                type: string
+                enum:
+                  - certificates not acceptable for action
         '406':
           description: Incorrect CBOR data or invalid content
+          content:
+            text/plain:
+              schema:
+                type: string
+                enum:
+                  - action not acceptable
+                  - invalid certificate format
+                  - invalid certificate encoding
+        '411':
+          description: Length Required
+          content:
+            text/plain:
+              schema:
+                type: string
+                enum:
+                  - length required
         '500':
           description: Internal Server Error
 #      security:
@@ -139,5 +173,3 @@ components:
           type: string
           enum:
             - replace
-            - extend
-            - TBD
