@@ -97,44 +97,70 @@ paths:
             text/plain:
               schema:
                 type: string
-                enum:
-                  - body too large
-                  - invalid request
+              examples:
+                size:
+                  summary: request too large
+                  description: A maximum size for the request body is enforced.
+                  value: body too large
+                invalid:
+                  summary: invalid request
+                  description: The request body could not be parsed or contains invalid fields.
+                  value: invalid request
         '401':
           description: Authentication Failure (Invalid Signature)
           content:
             text/plain:
               schema:
                 type: string
-                enum:
-                  - a certificate could not be verified
-                  - a certificate failed signature verification
+              examples:
+                notallowed:
+                  summary: invalid key id
+                  description: A certificate contains a wrong KID.
+                  value: a certificate could not be verified
+                verification:
+                  summary: signature failed
+                  description: A certificate did not pass the signature verification test.
+                  value: signature verification failed
         '403':
           description: Forbidden (Valid Signature, Forbidden DCC)
           content:
             text/plain:
               schema:
                 type: string
-                enum:
-                  - certificates not acceptable for action
+              examples:
+                combination:
+                  summary: unknown action
+                  description: The action is now allowed for this combination of certificates.
+                  value: certificates not acceptable for action
         '406':
           description: Incorrect CBOR data or invalid content
           content:
             text/plain:
               schema:
                 type: string
-                enum:
-                  - action not acceptable
-                  - invalid certificate format
-                  - invalid certificate encoding
+              examples:
+                action:
+                  summary: unknown action
+                  description: The action field contains an unknown value.
+                  value: action not acceptable
+                format:
+                  summary: format error
+                  description: A certificate does not conform to the COSE standard.
+                  value: invalid certificate format
+                encoding:
+                  summary: encoding error
+                  description: A certificate failes to decode or decompress.
+                  value: invalid certificate encoding
         '411':
           description: Length Required
           content:
             text/plain:
               schema:
                 type: string
-                enum:
-                  - length required
+              examples:
+                length:
+                  description: The request must have a fixed length.
+                  value: length required
         '500':
           description: Internal Server Error
 #      security:
