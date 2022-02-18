@@ -195,7 +195,10 @@ components:
           description: The index of the related certificate from the request.
           type: number
         action:
-          description: The operational relation to the new certificate.s
+          description: |
+            The operational relation to the new certificate.
+            (The nop action will be removed on production.)
           type: string
           enum:
             - replace
+            - nop
