@@ -94,86 +94,97 @@ paths:
         '400':
           description: Invalid Request
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
+                '$ref': '#/components/schemas/ErrorResponse'
               examples:
-                size:
-                  summary: request too large
-                  description: A maximum size for the request body is enforced.
-                  value: body too large
-                invalid:
-                  summary: invalid request
-                  description: The request body could not be parsed or contains invalid fields.
-                  value: invalid request
-        '401':
-          description: Authentication Failure (Invalid Signature)
-          content:
-            text/plain:
-              schema:
-                type: string
-              examples:
-                notallowed:
-                  summary: invalid key id
-                  description: A certificate contains a wrong KID.
-                  value: a certificate could not be verified
-                verification:
-                  summary: signature failed
-                  description: A certificate did not pass the signature verification test.
-                  value: signature verification failed
-        '403':
-          description: Forbidden (Valid Signature, Forbidden DCC)
-          content:
-            text/plain:
-              schema:
-                type: string
-              examples:
-                combination:
-                  summary: unknown action
-                  description: The action is now allowed for this combination of certificates.
-                  value: certificates not acceptable for action
-        '406':
-          description: Incorrect CBOR data or invalid content
-          content:
-            text/plain:
-              schema:
-                type: string
-              examples:
-                action:
-                  summary: unknown action
-                  description: The action field contains an unknown value.
-                  value: action not acceptable
-                format:
-                  summary: format error
-                  description: A certificate does not conform to the COSE standard.
-                  value: invalid certificate format
-                encoding:
-                  summary: encoding error
-                  description: A certificate failes to decode or decompress.
-                  value: invalid certificate encoding
+                BodyTooLarge:
+                  description: The request is too large and considered unacceptable.
+                  value:
+                    error: RI400-0100
+                    message: body too large
+                InvalidRequest:
+                  description: The body does not contain parsable json or is missing required fields.
+                  value:
+                    error: RI400-0200
+                    message: invalid request
+                ActionNotAcceptable:
+                  description: The action field contains none of the accepted values.
+                  value:
+                    error: RI400-0300
+                    message: action not acceptable
+                WrongNumberOfCertificates:
+                  description: The number of certificates provided does not match the expected number for the case.
+                  value:
+                    error: RI400-0400
+                    message: wrong number of certificates
+                InvalidCertificateFormat:
+                  description: |
+                    One or more certificats does not conform to the DCC serialization format,
+                    i.e. missing the 'HC1:' prefix.
+                  value:
+                    error: RI400-0500
+                    message: invalid certificate format
+                InvalidCertificateEncoding:
+                  description: One or more certificates cannot be decoded.
+                  value:
+                    error: RI400-0600
+                    message: invalid certificate encoding
+                InvalidCertificateCompression:
+                  description: One of the certificates cannot be decompressed.
+                  value:
+                    error: RI400-0700
+                    message: invalid certificate encoding
+                InvalidCOSEEncoding:
+                  description: One of the certificates cannot be decoded to COSE/CBOR.
+                  value:
+                    error: RI400-0800
+                    message: invalid certificate format
+                UnknownSigner:
+                  description: One of the certificates has a signature from an unknown signer.
+                  value:
+                    error: RI400-0900
+                    message: a certificate could not be verified
+                NameMismatch:
+                  description: The certificates do not belong together due to a name mismatch.
+                  value:
+                    error: RI400-1000
+                    message: certificates not acceptable for action
+                BirthDateMismatch:
+                  description: The certificates do not belong together due to a birth date mismatch.
+                  value:
+                    error: RI400-1100
+                    message: certificates not acceptable for action
+                ConditionFailed:
+                  description: The certificates fail to meet the condition for reissuing.
+                  value:
+                    error: RI400-1200
+                    message: certificates not acceptable for action
+                InvalidSignature:
+                  description: One of the certificates fails the signature verification.
+                  value:
+                    error: RI400-1300
+                    message: invalid signature
+                RuleValidationError:
+                  description: One or more certificates are not valid.
+                  value:
+                    error: RI400-1400
+                    message: certificates not acceptable for action
         '411':
           description: Length Required
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-              examples:
-                length:
-                  description: The request must have a fixed length.
-                  value: length required
+                '$ref': '#/components/schemas/ErrorResponse'
+              example:
+                LengthRequired:
+                  value:
+                    error: RI411-0100
+                    message: length required
+        '429':
+          description: Too Many Requests
         '500':
           description: Internal Server Error
-#      security:
-#        - AppBearerToken: [ ]
-
-#components:
-#  securitySchemes:
-#    AppBearerToken:
-#      type: http
-#      description: >-
-#        Authentication is based on a bearer token
-#      scheme: bearer
-#      bearerFormat: JWT
 
 components:
   schemas:
@@ -199,3 +210,17 @@ components:
           type: string
           enum:
             - replace
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A machine readable error code.
+        message:
+          type: string
+          description: Human readable description of the error.
+      required:
+        - error
+
+
