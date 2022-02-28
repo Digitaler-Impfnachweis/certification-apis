@@ -9,7 +9,6 @@ The following diagram illustrates this flow
 
 | Environment | Endpoint | Details |
 | --- | --- | --- |
-| TI Referenz Umgebung  (RU) | https://id.ru.impfnachweis.info/auth/realms/ubirch-certify/protocol/openid-connect/auth (deprecated) |  [Release 2.1.0](https://github.com/Digitaler-Impfnachweis/certification-apis/tree/2.1.0) deployed |
 | TI Referenz Umgebung  (RU) | https://id.ru.impfnachweis.info/auth/realms/bmg-ti-certify/protocol/openid-connect/auth  |  [Release 2.1.0](https://github.com/Digitaler-Impfnachweis/certification-apis/tree/2.1.0) deployed |
 | TI Produktions Umgebung (PU) | https://id.impfnachweis.info/auth/realms/bmg-ti-certify/protocol/openid-connect/auth |  [Release 2.0.0](https://github.com/Digitaler-Impfnachweis/certification-apis/tree/2.1.0) |
 
