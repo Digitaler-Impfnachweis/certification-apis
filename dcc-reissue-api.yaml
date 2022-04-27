@@ -53,6 +53,9 @@ paths:
         the integrity of the certificate, checks some formal rules of the content of the certificate and re-issues
         a new certificate with a different validity and/or re-encoded specifics (i.e. series encoding) than the original
         certificate.
+        
+        All certificates in a single request must adhere to same-person rule. Each request operates on certificates 
+        of one person.
 
         *Applications:* mobile applications, wallet apps
       requestBody:
