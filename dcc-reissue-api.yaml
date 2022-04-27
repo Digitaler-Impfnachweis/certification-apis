@@ -67,10 +67,15 @@ paths:
                   description: |
                     The operation to execute on the input certificate(s). All certificates in a single request
                     must adhere to same-person rule. Each request operates on certificates of one person.
+                    
+                    - `renew` - replace a certificate with a new version, i.e. booster recoding 2/2 -> 2/1
+                    - `extend` - extend the technical validity of a certificate
+                    - `combine` - combine multiple certificates (not used yet)
                   type: string
                   required: true
                   enum:
                     - renew
+                    - extend
                     - combine
                 certificates:
                   description: One or more certificates required for the operation.
@@ -169,6 +174,11 @@ paths:
                   description: One or more certificates are not valid.
                   value:
                     error: RI400-1400
+                    message: certificates not acceptable for action
+                InvalidCountry:
+                  description: One or more certificates cannot be used for reissuing because of country restrictions.
+                  value:
+                    error: RI400-1500
                     message: certificates not acceptable for action
         '411':
           description: Length Required
