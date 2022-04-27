@@ -175,6 +175,11 @@ paths:
                   value:
                     error: RI400-1400
                     message: certificates not acceptable for action
+                InvalidCountry:
+                  description: One or more certificates cannot be used for reissuing because of country restrictions.
+                  value:
+                    error: RI400-1500
+                    message: certificates not acceptable for action
         '411':
           description: Length Required
           content:
