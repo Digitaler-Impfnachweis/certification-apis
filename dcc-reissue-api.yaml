@@ -167,7 +167,7 @@ paths:
                   description: The certificates fail to meet the condition for reissuing.
                   value:
                     error: RI400-1200
-                    message: certificates not acceptable for action
+                    message: certificate not acceptable for action
                 InvalidSignature:
                   description: One of the certificates fails the signature verification.
                   value:
@@ -183,6 +183,26 @@ paths:
                   value:
                     error: RI400-1500
                     message: certificates not acceptable for action
+                TooOldExpirationDate:
+                  description: The expiration date of the last issued cert is too old.
+                  value:
+                    error: RI400-1600
+                    message: expiration date too old to become extended
+                TooEarlyExpirationDate:
+                  description: The expiration date of the last issued cert is too early.
+                  value:
+                    error: RI400-1700
+                    message: expiration date too young to become extended
+                SameIssuanceDate:
+                  description: Two or more certificates are issued at the same date.
+                  value:
+                    error: RI400-1800
+                    message: at least two DCCs were issued the same date
+                InvalidUVCI:
+                  description: The UVCI of the last issued cert is invalid.
+                  value:
+                    error: RI400-1900
+                    message: invalid unique certificate identifier
         '411':
           description: Length Required
           content:
