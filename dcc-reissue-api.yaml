@@ -193,11 +193,11 @@ paths:
                   value:
                     error: RI400-1700
                     message: expiration date too young to become extended
-                SameIssuanceDate:
-                  description: Two or more certificates are issued at the same date.
+                DateConflict:
+                  description: Two or more certificates reference the same date.
                   value:
                     error: RI400-1800
-                    message: at least two DCCs were issued the same date
+                    message: at least two DCCs have the same date (dt and/or fr)
                 InvalidUVCI:
                   description: The UVCI of the last issued cert is invalid.
                   value:
