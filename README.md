@@ -38,7 +38,7 @@ Please refer to [Implementation](Implementation.md) for an extensive certificate
 ## Additional Information
 
 For implementors the official documentation of the Digital Green Certificate
-can be found on the [EU eHealth Network](https://ec.europa.eu/health/ehealth/key_documents_en) page.
+can be found on the [EU eHealth Network](https://ec.europa.eu/health/ehealth-digital-health-and-care/ehealth-and-covid-19_en) page.
 
 ## Print Templates
 
