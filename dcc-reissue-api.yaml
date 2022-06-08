@@ -203,6 +203,11 @@ paths:
                   value:
                     error: RI400-1900
                     message: invalid unique certificate identifier
+                CertificateRevoked:
+                  description: One or more certificates are revoked.
+                  value:
+                    error: RI400-2000
+                    message: a certificate is revoked
         '411':
           description: Length Required
           content:
