@@ -208,6 +208,11 @@ paths:
                   value:
                     error: RI400-2000
                     message: a certificate is revoked
+                WrongIssuerCountry:
+                  description: Issuer country does not correlate with signing key country
+                  value:
+                    error: RI400-2100
+                    message: wrong issuer country
         '411':
           description: Length Required
           content:
