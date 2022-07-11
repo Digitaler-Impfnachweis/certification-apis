@@ -300,21 +300,23 @@ components:
           title: Person name
           description: Name of the person which receives the certificate.
           type: object
-          required:
-            - fn
-          properties:
-            fn:
-              title: Family name
-              description: The family or primary name(s) of the person addressed in the certificate
-              type: string
-              maxLength: 80
-              example: "Musterfrau-Dießner"
-            gn:
-              title: Given name
-              description: The given name(s) of the person addressed in the certificate
-              type: string
-              maxLength: 80
-              example: "Erika Dörte"
+          anyOf:
+          - properties:
+              fn:
+                title: Family name
+                description: The family or primary name(s) of the person addressed in the certificate
+                type: string
+                maxLength: 80
+                example: "Musterfrau-Dießner"
+            required: [ fn ]
+          - properties:
+              gn:
+                title: Given name
+                description: The given name(s) of the person addressed in the certificate
+                type: string
+                maxLength: 80
+                example: "Erika Dörte"
+            required: [ gn ]
         dob:
           title: Date of birth
           description: Date of Birth of the person addressed in the DGC. ISO 8601 date format restricted to range 1900-2099
