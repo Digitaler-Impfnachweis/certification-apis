@@ -67,9 +67,10 @@ The fields within the vaccination certificate request must be as follows:
   |------------|----|----|----|
   |Comirnaty (BionTech/Pfizer)|`1119349007` or `J07BX03`|`EU/1/20/1528`|`ORG-100030215`|
   |Spikevax (Moderna)|`1119349007` or `J07BX03`|`EU/1/20/1507`|`ORG-100031184`|
-  |Vaxzevria (AstraZeneca)|`J07BX03`|`EU/1/21/1529`|`ORG-100001699`|
+  |Vaxzevria (AstraZeneca)|`29061000087103` or `J07BX03`|`EU/1/21/1529`|`ORG-100001699`|
   |COVID-19 Vaccine Janssen (Johnson and Johnson)|`J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
   |Nuvaxovid (Novavax)|`J07BX03`|`EU/1/21/1618`|`ORG-100032020`|
+  |Jcovden (Johnson und Johnson)|`29061000087103` or `J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
 
 
 ### Values for `dn` and `sd` for base vaccinations with the same vaccine
