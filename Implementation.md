@@ -1,7 +1,7 @@
 # Schema for creating certificates
 
 Please read the following instructions carefully in order to create commonly compatible DCCs using the `/api/v2/issue` API.  
-The following information adheres to the [Guidelines on Technical Specifications for EU Digital COVID Certificates JSON Schema Specification Schema version 1.3.0 2021-06-09](https://ec.europa.eu/health/sites/default/files/ehealth/docs/covid-certificate_json_specification_en.pdf), but also includes further information, e.g. for **booster vaccinations**. Please bear in mind, that specifications for the Digitales Impfquotenmonitoring by the RKI might be different from the specifications for the certificates.
+The following information adheres to the [Guidelines on Technical Specifications for EU Digital COVID Certificates JSON Schema Specification Schema version 1.3.0 2021-06-09](https://ec.europa.eu/health/sites/default/files/ehealth/docs/covid-certificate_json_specification_en.pdf) and the [eHealth Network Repository for the Digital Covid Certificate Schema](https://github.com/ehn-dcc-development/eu-dcc-schema), but also includes further information, e.g. for **booster vaccinations**. Please bear in mind, that specifications for the Digitales Impfquotenmonitoring by the RKI might be different from the specifications for the certificates.
 
 The APIs can be used to issue both vaccination and recovery certificates. Vaccination certificates document a single vaccination dose, like for example first dose, second dose or a booster dose. Recovery certificates document a recovery from COVID-19 detected by a positive PCR test.  
 Any certificate should only contain a single record: a single vaccination or a single recovery statement.
@@ -16,9 +16,8 @@ Any certificate should only contain a single record: a single vaccination or a s
 
 ## Information for all types of certificates
 
-All certificates must be provided with information on the receiver of the certificate:
-
-* `nam/fn`: Surname(s), such as family name(s), of the holder. Exactly 1 (one) non-empty field MUST be provided, with all surnames included in it. In case of multiple surnames, these MUST be separated by a space. Combination names including hyphens or similar characters must however stay the same. ≤ 80 characters.
+All certificates must be provided with information on the receiver of the certificate. At least one of the fields `nam/fn` and `nam/gn` must be provided. The field `dob` must always be provided. 
+* `nam/fn`: Surname(s), such as family name(s), of the holder. If the holder has no surnames, this field MUST be skipped. Otherwise, all surnames must be included in it. In case of multiple surnames, these MUST be separated by a space. Combination names including hyphens or similar characters must however stay the same. ≤ 80 characters.
 * `nam/gn`: Forename(s), such as given name(s), of the holder. If the holder has no forenames, the field MUST be skipped. In all other cases, exactly 1 (one) non-empty field MUST be provided, with all forenames included in it. In case of multiple forenames, these MUST be separated by a space. ≤ 80 characters.
 * `dob`: Date of birth of the DCC holder. Complete or partial date without time restricted to the range from 1900-01-01 to 2099-12-31\. Exactly 1 (one) non-empty field MUST be provided if the complete or partial date of birth is known. If the date of birth is not known even partially, the field MUST be set to an empty string "". This should match the information as provided on travel documents. One of the following ISO 8601 formats MUST be used if information on date of birth is available. Other options are not supported. `YYYY-MM-DD`, `YYYY-MM`, `YYYY`  
   Example:
@@ -68,9 +67,10 @@ The fields within the vaccination certificate request must be as follows:
   |------------|----|----|----|
   |Comirnaty (BionTech/Pfizer)|`1119349007` or `J07BX03`|`EU/1/20/1528`|`ORG-100030215`|
   |Spikevax (Moderna)|`1119349007` or `J07BX03`|`EU/1/20/1507`|`ORG-100031184`|
-  |Vaxzevria (AstraZeneca)|`J07BX03`|`EU/1/21/1529`|`ORG-100001699`|
+  |Vaxzevria (AstraZeneca)|`29061000087103` or `J07BX03`|`EU/1/21/1529`|`ORG-100001699`|
   |COVID-19 Vaccine Janssen (Johnson and Johnson)|`J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
   |Nuvaxovid (Novavax)|`J07BX03`|`EU/1/21/1618`|`ORG-100032020`|
+  |Jcovden (Johnson und Johnson)|`29061000087103` or `J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
 
 
 ### Values for `dn` and `sd` for base vaccinations with the same vaccine
