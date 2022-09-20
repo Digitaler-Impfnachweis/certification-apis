@@ -54,8 +54,8 @@ paths:
       description: |
         # Description
 
-        Issue a health certificate based on the provided input according to spec 1.0.0 of the
-        [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.0.0).
+        Issue a health certificate based on the provided input according to spec 1.3.3 of the
+        [Digital Green Certificate (DGC)](https://github.com/ehn-digital-green-development/ehn-dgc-schema/releases/tag/1.3.2).
 
         **Authentication:** clients connecting via Internet (not [SNK](https://www.kbv.de/html/sicheres_netz.php)/[TI](https://www.gematik.de/telematikinfrastruktur/))
         need an X.509 client certificate and must provide a list of authorized vaccination center `id`'s.
