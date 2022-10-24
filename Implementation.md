@@ -71,6 +71,7 @@ The fields within the vaccination certificate request must be as follows:
   |COVID-19 Vaccine Janssen (Johnson and Johnson)|`J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
   |Nuvaxovid (Novavax)|`J07BX03`|`EU/1/21/1618`|`ORG-100032020`|
   |Jcovden (Johnson und Johnson)|`29061000087103` or `J07BX03`|`EU/1/20/1525`|`ORG-100001417`|
+  |COVID-19 Vaccine Valneva (Valneva France)|`J07BX03`|`EU/1/21/1624`|`ORG-100036422`|
 
 
 ### Values for `dn` and `sd` for base vaccinations with the same vaccine
@@ -79,7 +80,7 @@ Base vaccinations are regular vaccinations with the same vaccine.
 
 Valid values for regular vaccinations are limited to
 
-* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and Novavax:
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca, Novavax and Valneva:
     * `sd` must always be `2`
     * `dn` can either be `1` for the first dose or `2` for the second dose
 * for the vaccine by Johnson and Johnson:
@@ -97,11 +98,11 @@ Cross vaccinations are second dose vaccinations, where the first dose has been a
 
 Valid values for cross vaccinations are limited to
 
-* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and Novavax following a first-dose vaccination with one of the vaccines
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca, Novavax and Valneva following a first-dose vaccination with one of the vaccines
   by BioNTech/Pfizer, Moderna, AstraZeneca:
     * `sd` must always be `2`
     * `dn` must always be `2`
-* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca and Novavax following a first-dose vaccination with the vaccine by
+* for the vaccines by BioNTech/Pfizer, Moderna, AstraZeneca, Novavax and Valneva following a first-dose vaccination with the vaccine by
   Johnson and Johnson
     * `sd` must always be `1`
     * `dn` must always be `2`
@@ -151,6 +152,8 @@ This implies, that
     * the first booster vaccination will be issued as `sd=1` and `dn=2`
     * the second booster vaccination will be issued as `sd=1` and `dn=3`
     * etc.
+    
+Note that the vaccine by Valneva is not considered for booster vaccinations.
 
 ## Recovery Certificates
 
