@@ -38,11 +38,16 @@ curl --request GET 'https://<host>/auth/realms/<realm>/protocol/openid-connect/a
 ```
 Example Response 
 ```
-< HTTP/2 303
+< HTTP/2 200
 < content-length: 0
-< location: https://<host>/auth/realms/<realm>/login-actions/authenticate?session_code=kNJIzxgdw6GWYHdNIeI5aEA7x91b8-tuw0zdVHGMabE&execution=ab86f06d-69b0-44d3-8c7b-a980ed1dc3a7&client_id=user-access-ti&tab_id=WGEj4oBWvh4&auth_session_id=ce6ed41d-b46d-4a69-9ef7-ef5ab7ad63c0
+< location: https://<host>/auth/realms/<realm>/login-actions/authenticate?session_code=kNJIzxgdw6GWYHdNIeI5aEA7x91b8-tuw0zdVHGMabE&execution=ab86f06d-69b0-44d3-8c7b-a980ed1dc3a7&client_id=user-access-ti&tab_id=WGEj4oBWvh4&auth_session_id=ce6ed41d-b46d-4a69-9ef7-ef5ab7ad63c0&tab_id=FBGZX-SyeqI
 < x-auth-challenge: 171c09de-2f1a-493a-bad7-ee4761a2bec3
+< set-cookie: AUTH_SESSION_ID=916a0ffc-ebca-408b-973c-c470ed000d62.keycloak-certificato-keycloakx-0-33399; Version=1; Path=/auth/realms/bmg-ti-certify/; SameSite=None; Secure; HttpOnly
+< set-cookie: KC_RESTART=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJlNjlhM2ViOS1iNDgyLTRiNTctYjIwNC01M2E3NTg5ZTE1NWUifQ.eyJjaWQiOiJ1c2VyLWFjY2Vzcy10aSIsInB0eSI6Im9wZW5pZC1jb25uZWN0IiwicnVyaSI6ImNvbm5lY3RvcjovL2F1dGhlbnRpY2F0ZWQiLCJhY3QiOiJBVVRIRU5USUNBVEUiLCJub3RlcyI6eyJzY29wZSI6Im9wZW5pZCIsImlzcyI6Imh0dHBzOi8vaWQuY2VydGlmeS5kZW1vLnViaXJjaC5jb20vYXV0aC9yZWFsbXMvYm1nLXRpLWNlcnRpZnkiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsInJlZGlyZWN0X3VyaSI6ImNvbm5lY3RvcjovL2F1dGhlbnRpY2F0ZWQiLCJub25jZSI6ImYyM2c0ZjRmNWczIn19.27XzBiLoMnSakd_e-OpCYCRkX449JK8WeVw-hSYchz0; Version=1; Path=/auth/realms/bmg-ti-certify/; HttpOnly
 ```
+
+> **Important**: with the update to a new keycloak version, the previous cookie-less session handling is no longer available. To ensure the authentication flow works, please send the `AUTH_SESSION_ID` for subsequent requests.
+> The reason is that Keycloak deprecates and will remove cookie-less authentication flows.
 
 ## 2. Receive Challenge 
 
